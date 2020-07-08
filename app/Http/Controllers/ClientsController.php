@@ -11,6 +11,15 @@ use App\Models\AppModels\Clients;
 class ClientsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -151,7 +160,7 @@ class ClientsController extends Controller
         }
         $clients->save();
 
-        return redirect('/clients')->with('success', 'Information Updated For '.$clients->title);
+        return redirect('/app/clients')->with('success', 'Information Updated For '.$clients->title);
     }
 
     /**
@@ -175,7 +184,7 @@ class ClientsController extends Controller
         $item = $clients->title;
         $clients->delete();
 
-        return redirect('/clients')->with('success', $item.' is successfully deleted.');
+        return redirect('/app/clients')->with('success', $item.' is successfully deleted.');
     }
 
     public function updateStatus(Request $request, $id){

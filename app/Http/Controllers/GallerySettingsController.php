@@ -12,6 +12,15 @@ use App\Models\AppModels\SiteSettings;
 class GallerySettingsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -85,7 +94,7 @@ class GallerySettingsController extends Controller
         error_log('->Host is : '.$gallery->image_type);
         $gallery->save();
 
-        return redirect('/gallery')->with('success', 'Image saved Successfully');
+        return redirect('/app/gallery')->with('success', 'Image saved Successfully');
     }
 
     /**
@@ -161,7 +170,7 @@ class GallerySettingsController extends Controller
         error_log('->Host is : '.$gallery->image_type);
         $gallery->save();
 
-        return redirect('/gallery')->with('success', 'Information Updated For '.$gallery->title);
+        return redirect('/app/gallery')->with('success', 'Information Updated For '.$gallery->title);
     }
 
     /**
@@ -185,7 +194,7 @@ class GallerySettingsController extends Controller
         $item = $gallery->title;
         $gallery->delete();
 
-        return redirect('/gallery')->with('success', $item.' is successfully deleted.');
+        return redirect('/app/gallery')->with('success', $item.' is successfully deleted.');
     }
 
     public function updateImageCategory(Request $request, $id){
@@ -194,6 +203,6 @@ class GallerySettingsController extends Controller
         $gallery->image_category_id = $request->input('image_cat-'.$id);
         $gallery->save();
 
-        return redirect('/gallery')->with('success', 'Image Category Updated For '.$gallery->title);
+        return redirect('/app/gallery')->with('success', 'Image Category Updated For '.$gallery->title);
     }
 }

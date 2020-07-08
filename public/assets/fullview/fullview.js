@@ -83,7 +83,7 @@
                 }
 
                 if (!$created) {
-                    $("#navbar").find(".nav-link").each(function() { IDs.push(this.id); });
+                    $("#sec-nav-to-side").find(".nav-link").each(function() { IDs.push(this.id); });
 
 
 
@@ -126,11 +126,12 @@
                         //var ele = element.toString();
 
                         var eleId = element.toString().split('#');
-                        //console.log('$eleId: ' + eleId[1]);
+                        //console.log('$eleId: ' + eleId[1] + ' ID: ' + eleId[0] + " Key " + key + " $view: " + $view);
+                        console.log("====> " + this.id + "  eleId[1].toLowerCase() " + eleId[1].toLowerCase());
                         if (key === $view) {
-                            //console.log("=> " + "#" + eleId[1]);
+                            //console.log("====> " + this.id + "  eleId[1].toLowerCase() " + eleId[1].toLowerCase());
                             $("#fv-dots").find(".nav-link").each(function() {
-                                //console.log("====> " + this.id); //.getAttribute("href")
+                                //console.log("====> " + this.id + "  eleId[1].toLowerCase() " + eleId[1].toLowerCase()); //.getAttribute("href")
                                 if (this.id.toString().toLowerCase().includes(eleId[1].toLowerCase())) {
                                     console.log("====> TRUE");
                                     $("#" + this.id).addClass('active');

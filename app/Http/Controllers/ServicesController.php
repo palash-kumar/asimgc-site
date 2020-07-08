@@ -9,6 +9,15 @@ use App\Models\AppModels\SiteSettings;
 class ServicesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -58,7 +67,7 @@ class ServicesController extends Controller
         //$service->user_id = auth()->user()->id;
         //$service->cover_image = $filenameToStore;
         $service->save();
-        return redirect('/services')->with('success', 'Service Created');
+        return redirect('/app/services')->with('success', 'Service Created');
     }
 
     /**
@@ -112,6 +121,6 @@ class ServicesController extends Controller
         $item = $service->title;
         $service->delete();
 
-        return redirect('/services')->with('success', $item.' Service is Successfully Deleted!');
+        return redirect('/app/services')->with('success', $item.' Service is Successfully Deleted!');
     }
 }

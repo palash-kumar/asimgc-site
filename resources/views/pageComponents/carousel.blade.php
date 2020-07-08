@@ -12,7 +12,7 @@
               </a>-->
               @if ($count==0)
               <div class=" carousel-item slides active">
-                <div class="slide-1" style="background:linear-gradient( rgba( 52, 152, 219, 0.35), rgba( 52, 152, 219, 0.35)), url(storage/siteImages/Gallery/{{$image->image_path}}) no-repeat fixed center; background-size: cover;"></div>
+                <div class="slide-1" style="background:linear-gradient( rgba( 52, 152, 219, 0.35), rgba( 52, 152, 219, 0.35)), url(/storage/siteImages/Gallery/{{$image->image_path}}) no-repeat fixed center; background-size: cover;"></div>
                 <div class="hero">
                     <hgroup>
                     <h1>{{$image->title}}</h1>
@@ -26,7 +26,7 @@
               @endphp
               @else
               <div class=" carousel-item slides ">
-                <div class="slide-1" style="background:linear-gradient( rgba( 52, 152, 219, 0.35), rgba( 52, 152, 219, 0.35)), url(storage/siteImages/Gallery/{{$image->image_path}}) no-repeat fixed center; background-size: cover;"></div>
+                <div class="slide-1" style="background:linear-gradient( rgba( 52, 152, 219, 0.35), rgba( 52, 152, 219, 0.35)), url(/storage/siteImages/Gallery/{{$image->image_path}}) no-repeat fixed center; background-size: cover;"></div>
                 <div class="hero">
                     <hgroup>
                     <h1>{{$image->title}}</h1>

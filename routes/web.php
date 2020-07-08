@@ -25,24 +25,24 @@ Route::get('/gallery', 'PagesController@gallery')->name('gallery');
 
 Route::get('/projects', 'PagesController@projects')->name('projects');
 
-Route::get('/dev', 'PagesController@developmentTest')->name('dev');
+Route::get('/app/dev', 'PagesController@developmentTest')->name('dev');
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('app/home', 'HomeController@index')->name('home');
 /* Controllers at Application End; Requires Login */
-Route::resource('services','ServicesController');
+Route::resource('app/services','ServicesController');
 
-Route::resource('settings','SiteSettingsController');
-Route::post('settings/updateStatus/{id}','SiteSettingsController@updateStatus');
+Route::resource('app/settings','SiteSettingsController');
+Route::post('app/settings/updateStatus/{id}','SiteSettingsController@updateStatus');
 
-Route::resource('gallery','GallerySettingsController');
-Route::put('gallery/updateCategory/{id}','GallerySettingsController@updateImageCategory');
+Route::resource('app/gallery','GallerySettingsController');
+Route::put('app/gallery/updateCategory/{id}','GallerySettingsController@updateImageCategory');
 
-Route::resource('clients','ClientsController');
-Route::post('clients/updateStatus/{id}','ClientsController@updateStatus');
+Route::resource('app/clients','ClientsController');
+Route::post('app/clients/updateStatus/{id}','ClientsController@updateStatus');
 
-Route::resource('projects','ProjectsController');
-Route::post('projects/updateStatus/{id}','ProjectsController@updateStatus');
-Route::post('projects/updateProjectStatus/{id}','ProjectsController@updateProjectStatus');
+Route::resource('app/projects','ProjectsController');
+Route::post('app/projects/updateStatus/{id}','ProjectsController@updateStatus');
+Route::post('app/projects/updateProjectStatus/{id}','ProjectsController@updateProjectStatus');

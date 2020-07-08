@@ -9,6 +9,15 @@ use App\Models\AppModels\SiteSettings;
 class SiteSettingsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -75,7 +84,7 @@ class SiteSettingsController extends Controller
         }
         $settings->save();
 
-        return redirect('/settings')->with('success', 'Settings saved Successfully');
+        return redirect('/app/settings')->with('success', 'Settings saved Successfully');
     }
 
     /**
@@ -143,7 +152,7 @@ class SiteSettingsController extends Controller
         }
         $settings->save();
 
-        return redirect('/settings')->with('success', 'Settings UPDATED Successfully');
+        return redirect('/app/settings')->with('success', 'Settings UPDATED Successfully');
     }
 
     /**

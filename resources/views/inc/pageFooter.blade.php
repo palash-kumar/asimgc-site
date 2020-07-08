@@ -6,20 +6,13 @@
                 <p>On Shore & Off Shore Oil & Gas Fields Services</p>
 
             </div>
-           <!-- <div class="col-sm-3">
-                <h4 class="title">My Account</h4>
-                <span class="acount-icon">
-            <a href="#"><i class="fa fa-heart" aria-hidden="true"></i> Wish List</a>
-            <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i> Cart</a>
-            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
-            <a href="#"><i class="fa fa-globe" aria-hidden="true"></i> Language</a>
-          </span>
-            </div>-->
             <div class="col-sm-4">
                 <h4 class="title h-style">Activities</h4>
                 <div class="category" style="font-size: smaller;">
-                    @foreach ($services as $service)
-                        <a href="#">{{$service->title}}</a>
+                    
+                    @foreach (Session::get('services') as $service)
+                        <a href="#">{{$service['title']}}</a>
+                        
                     @endforeach
                     
                 </div>

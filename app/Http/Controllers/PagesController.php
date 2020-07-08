@@ -13,8 +13,22 @@ use App\Models\AppModels\Gallery;
 use App\Models\AppModels\ImageCategory;
 use App\Models\AppModels\Clients;
 
+use App\Models\CustomModels\Helper;
+use Session;
+
+
 class PagesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>['index', 'commitments', 'gallery', 'projects', 'commitments', 'commitments']]);
+    }
+
     public function index(Request $request){
         $host = $request->getHttpHost();
         error_log('->Host is : '.$host);
@@ -39,7 +53,7 @@ class PagesController extends Controller
             'services' => $services
 
         );
-
+        Session::put('services', $services);
         /*
         ,
             'commitments' => $commitments,
@@ -87,9 +101,43 @@ class PagesController extends Controller
         return view('pages.commitment')->with('companySettings',$companySettings);
     }
 
-    public function gallery(){
-        $title = "Our Gallery!";
-        return view('pages.gallery', compact('title'));
+    public function gallery(Request $request){
+        //error_log('->->gallery is : '.$request->getHttpHost());
+        
+        $company = Session::get("company");
+        if($company == null){
+            $helper = new Helper();
+            $helper->getSettings($request);
+        }
+
+        $company = Session::get("company");
+
+        $data = array( );
+
+        //$term = "certificates";
+        // Only Certificates
+        $certificates = Gallery::where(['com_id' =>$company->companyId])
+                        ->with('imageCategory')
+                        ->whereHas('imageCategory', function($query)  {// use ($term)
+                        $query->where('tagName', 'certificates');
+                        })->Where(['status' => true])->get();
+        
+        error_log('->Host is : '.count($certificates));
+        $data['certificates'] = $certificates;
+        
+        // Only Front gallery and gallery where **Front** gallery contains images for displaying in main page 
+        $gallery = Gallery::where(['com_id' =>$company->companyId])
+                        ->with('imageCategory')
+                        ->whereHas('imageCategory', function($query)  {// use ($term)
+                        $query->where('tagName', 'gallery')->orWhere(['tagName' => 'frontGalery']);
+                        })->get();
+
+        $data['gallery'] = $gallery;
+
+        
+
+        $title = "Gallery";
+        return view('pages.gallery')->with("title", $title)->with($data);
     }
 
     public function projects(){
@@ -116,14 +164,18 @@ class PagesController extends Controller
         $services = Services::where(['com_id' => $company->companyId])->get();
         $term = 'Commitment';
         //$imgCat = ImageCategory::where(['title' => 'like'. "%$term%" ])->get();//where(['title' => 'like', '%' . Input::get('name') . '%'])->get();
+        
         $imgCats = ImageCategory::all();
-
+        /*where(['tagName' => 'frontGalery'])
+                                ->orWhere(['tagName' => 'certificates'])
+                                ->orWhere(['tagName' => 'slider'])->get();*/
         $data = array(
             'siteSettings' => $siteSettings,
             'services' => $services
 
         );
 
+        Session::put('services', $services);
         /*
         ,
             'commitments' => $commitments,

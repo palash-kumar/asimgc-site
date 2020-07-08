@@ -5,7 +5,7 @@
 @include('pageComponents.carousel')
     
 <!-- About================================================== -->
-<section class="about-sec parallax-section fde pt-5" id="about" >
+<section class="about-sec parallax-section fde" id="about" >
     <div class="container pt-5">
         <div class="row">
             <div class="col-md-4" data-aos="zoom-in-left">
@@ -68,7 +68,7 @@
 <!-- ./About End ================================================== -->
 
 <!-- safety ================================================== -->
-<section id="safety" class="fde pt-5">
+<section id="safety" class="fde">
     <div class="container pt-5">
         <div class="row ">
             <div class="col-md-12">
@@ -84,7 +84,7 @@
                     <div class="row no-gutters">
                     <div class="col-md-4 align-self-center">
                         <!-- class="w-50 shadow border-circle" -->
-                        <img class="card-img" src="storage/siteImages/Gallery/{{$commitment->image_path}}" alt="Quality" class="w-50 shadow border-circle" >
+                        <img class="card-img" src="/storage/siteImages/Gallery/{{$commitment->image_path}}" alt="Quality" class="w-50 shadow border-circle" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body text-body">
@@ -104,7 +104,7 @@
 </section>
 <!-- ./safety ================================================== -->
 <!-- self ================================================== -->
-<section id="self" class="fde pt-5">
+<section id="self" class="fde">
     <div class="container pt-5">
         <div class="row ">
             <div class="col-md-12">
@@ -203,8 +203,8 @@
 </section>
 <!-- ./self ================================================== -->
 <!-- Clients ================================================== -->
-<section class="clients fde pt-5" id="clients" >
-    <div class="container pt-5">
+<section class="clients fde" id="clients" >
+    <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
@@ -216,7 +216,7 @@
             @foreach ($clients as $client)
             <div class="col-6 col-md-3 my-1">
                 <div class="card">
-                    <img class="card-img-top" src="storage/siteImages/Clients/{{$client->image_path}}" height="100px">
+                    <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
                 </div>
             </div>
             @endforeach
@@ -224,6 +224,16 @@
     </div>
 </section>
 <!-- ./Clients End ================================================== -->
+<style>
+    .mdb-lightbox.no-margin [class*="col-"] {
+        padding: 0;
+    }
+
+    .mdb-lightbox figure {
+        float: left;
+        margin: 0;
+    }
+</style>
 <section class="action-sec fde pt-5" id="gallery">
     <div class="container pt-5">
         <div class="row">
@@ -234,14 +244,44 @@
             </div>
         </div>
 
+        <!-- -->
+        <div class="row">
+            <div class="col-md-12">
+          
+              <div id="mdb-lightbox-ui"></div>
+          
+              <div class="mdb-lightbox no-margin">
+                @if (count($frontGalery) > 0)
+                    @foreach ($frontGalery as $image)
+                        <figure class="col-md-3">
+                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" data-size="1600x1067">
+                                <img alt="picture" src="/storage/siteImages/Gallery/{{$image->image_path}}"
+                                  class="img-fluid" />
+                              </a>
+                          </figure>
+                    @endforeach
+
+                    @foreach ($gallery as $image)
+                        <figure class="col-md-3">
+                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox shadow" data-size="1600x1067" rel="gallery1">
+                                <img alt="picture" src="/storage/siteImages/Gallery/{{$image->image_path}}"
+                                  class=" img-fluid" />
+                              </a>
+                          </figure>
+                    @endforeach
+                @endif
+              </div>
+          
+            </div>
+        </div>
+        <!-- -->
         
-        
-        <div class="row image-box justify-content-center" id=”images-wrapper”>
+        <!--<div class="row image-box justify-content-center" id=”images-wrapper”>
             <div class="col-md-12 text-center">
                 @if (count($frontGalery) > 0)
                     @foreach ($frontGalery as $image)
-                        <a href="storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox shadow" rel="gallery1">
-                            <img src="storage/siteImages/Gallery/{{$image->image_path}}" class="zoom img-fluid "  alt="">
+                        <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox shadow" rel="gallery1">
+                            <img src="/storage/siteImages/Gallery/{{$image->image_path}}" class="zoom img-fluid "  alt="">
                         </a>
                     @endforeach
                 @endif
@@ -261,7 +301,7 @@
                 <!--
                 <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/License.jpg" class="fancybox" rel="ligthbox">
                     <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/License.jpg" class="zoom img-fluid "  alt="">
-                </a>-->
+                </a>-- >
                 <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/TRN.jpg" class="fancybox" rel="gallery1">
                     <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/TRN.jpg" class="zoom img-fluid "  alt="">
                 </a><!--
@@ -270,7 +310,7 @@
                 </a>
                 <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/OHS.jpg"  class="fancybox" rel="ligthbox">
                     <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/OHS.jpg" class="zoom img-fluid"  alt="">
-                </a>-->
+                </a>-- >
                 
                 <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/site1.png" class="fancybox" rel="gallery1">
                     <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/site1.png" class="zoom img-fluid "  alt="">
@@ -285,7 +325,21 @@
                     <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190326_140105_C.jpg" class="zoom img-fluid"  alt="">
                 </a>
             </div>
-        </div>
+        </div>-->
+
+
+        
+
+        
+
+
     </div>
 </section>
+
+<script>
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+    });
+</script>
 @endsection

@@ -12,19 +12,5 @@ class CompanySettings extends Model
     private $description = '';
     private $logo = '';
 
-    /*function setTitle($title){
-        $this->$title = $title;
-    }
-
-    function getTitle(){
-        return $title;
-    }
-
-    function setDescription($description){
-        $this->$description = $description;
-    }
-
-    function getDescription(){
-        return $description;
-    }*/
+    
 }

@@ -11,6 +11,16 @@ use App\Models\AppModels\Projects;
 class ProjectsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -93,7 +103,7 @@ class ProjectsController extends Controller
         $projects->com_id = $company->companyId;
         $projects->save();
 
-        return redirect('/projects')->with('success', 'Project Info saved Successfully');
+        return redirect('/app/projects')->with('success', 'Project Info saved Successfully');
     }
 
     /**
@@ -178,7 +188,7 @@ class ProjectsController extends Controller
         }
         $projects->save();
 
-        return redirect('/projects')->with('success', 'Information Updated For '.$projects->title);
+        return redirect('/app/projects')->with('success', 'Information Updated For '.$projects->title);
     }
 
     /**
@@ -202,7 +212,7 @@ class ProjectsController extends Controller
         $item = $projects->title;
         $projects->delete();
 
-        return redirect('/projects')->with('success', $item.' is successfully deleted.');
+        return redirect('/app/projects')->with('success', $item.' is successfully deleted.');
     }
 
     public function updateStatus(Request $request, $id){
