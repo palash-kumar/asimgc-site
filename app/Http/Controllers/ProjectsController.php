@@ -30,8 +30,8 @@ class ProjectsController extends Controller
         $projects = Projects::all();
         $months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
         $years = range(date('Y'), 1989);
-        array_unshift($years, "Select year");
-        array_unshift($months, "Select month");
+        //array_unshift($years, "Select year");
+        //array_unshift($months, "Select month");
         //User::all()->random(10); // The amount of items you wish to receive
         return view('appPages.projectsSettings')->with('projects',$projects)->with('months',$months)->with('years',$years);
     }
@@ -174,10 +174,27 @@ class ProjectsController extends Controller
         $projects->title = $request->input('etitle');
         $projects->type = $request->input('etype');
         $projects->description = $request->input('edescription');
-        $projects->year = $request->input('eyear');
-        $projects->month = $request->input('emonth');
-        $projects->endYear = $request->input('eendYear');
-        $projects->endMonth = $request->input('eendMonth');
+
+        if(!empty($request->input('eyear')))
+            if($projects->year != $request->input('eyear'))
+                $projects->year = $request->input('eyear');
+
+
+        if(!empty($request->input('emonth')))
+            if($projects->month != $request->input('emonth'))
+                $projects->month = $request->input('emonth');
+
+
+        if(!empty($request->input('eendYear')))
+        if($projects->endYear != $request->input('eendYear'))
+            $projects->endYear = $request->input('eendYear');
+
+
+        if(!empty($request->input('eendMonth')))
+        if($projects->endMonth != $request->input('eendMonth'))
+            $projects->endMonth = $request->input('eendMonth');
+
+
         $projects->clientName = $request->input('eclientName');
         $projects->mainContractor = $request->input('emainContractor');
         $projects->consultant = $request->input('econsultant');

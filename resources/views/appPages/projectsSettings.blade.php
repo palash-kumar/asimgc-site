@@ -123,7 +123,7 @@
                 <div class="col-md-6 col-6 pb-2">
                     <div class="fom-group">
                         {{Form::label('year', 'Project Start Year')}}
-                        <select id='year' name='endYear' class="form-control">
+                        <select id='year' name='year' class="form-control">
                                 <option value=''>Select Year</option>
                             @foreach ($years as $key => $value) 
                                 <option value='{{$value}}'>{{$value}}</option>
@@ -235,14 +235,15 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Project</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             {!! Form::open(['action'=>'ProjectsController@index', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'edit-gallery-form']) !!}
-            <div class="col-md-12 col-12 pb-2">
+            <div class="row">
+              <div class="col-md-12 col-12 pb-2">
                 <div class="fom-group">
                   {{Form::label('etitle', 'Title')}}
                   {{Form::text('etitle', '', ['class'=>'form-control', 'placeholder'=>'Title'])}}
@@ -329,6 +330,7 @@
                   </div>
               </div>
             </div>
+        </div>
 
                 
                 <div class="fom-group">

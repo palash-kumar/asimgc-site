@@ -57,6 +57,10 @@
             <li class="nav-item active">
                 <a class="nav-link js-scroll-trigger" href="#contact" id="contact-m" >Contact</a>
             </li>
+            
+            <li class="nav-item active">
+                <a class="nav-link js-scroll-trigger" href="#contact" id="contact-m" >Contact</a>
+            </li>
           </ul>
       </div>
       <!--

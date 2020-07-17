@@ -30,6 +30,7 @@
     <!-- fancyBox v2.1.5 --->
     <link href="{{ asset('assets/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 
+    @yield('styles')
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
@@ -53,6 +54,7 @@
 
     <!-- ckeditor -->
     <script src="{{ asset('assets/fullview/fullview.js') }}" ></script>
+    @yield('script-head')
 
 </head>
 <body>
@@ -94,32 +96,6 @@
         });
     </script>
 
-    <script type="text/javascript">
-
-        /*$(document).ready(function () {
-
-            $("#fullview").fullView({
-                //Navigation
-                navbar: "#navbar",
-                dots: true,
-                dotsPosition: 'right',
-
-                //Scrolling
-                easing: 'swing',
-                backToTop: true,
-
-                // Accessibility
-                keyboardScrolling: true,
-
-                // Callback
-                onViewChange: function (currentView) {
-                    // console.log(currentView)
-                }
-            })
-
-        });*/
-
-
-    </script>
+    @yield('script')
 </body>
 </html>

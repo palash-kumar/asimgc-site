@@ -101,6 +101,11 @@ body {
     background-attachment: fixed;
 }
 
+.background-dot {
+    background-image: url(/images/backgrounds/bg_pattern-dot.png);
+    background-attachment: fixed;
+}
+
 #about .category p {
     text-decoration: none;
     color: #35404f;
@@ -562,6 +567,10 @@ img.zoom {
 
 /* ==== ./Quality Section End ==== */
 
+.odometer {
+    border-bottom: .25rem solid #343a40 !important;
+}
+
 body {
     background-image: url(/images/backgrounds/background-white.jpg);
     background-size: cover;
@@ -653,3 +662,18 @@ body {
         column-count: 1;
     }
 }
+
+
+/* ==== Gallery lightbox ==== */
+
+.mdb-lightbox.no-margin [class*="col-"] {
+    padding: 0;
+}
+
+.mdb-lightbox figure {
+    float: left;
+    margin: 0;
+}
+
+
+/* ==== ./Gallery lightbox ==== */

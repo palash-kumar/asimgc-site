@@ -30,6 +30,7 @@
     <!-- fancyBox v2.1.5 --->
     <link href="{{ asset('assets/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 
+    @yield('styles')
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
@@ -54,6 +55,7 @@
     <!-- ckeditor -->
     <script src="{{ asset('assets/fullview/fullview.js') }}" ></script>
 
+    @yield('script-head')
 </head>
 <body>
     <div id="app">
@@ -121,5 +123,6 @@
 
 
     </script>
+    @yield('script')
 </body>
 </html>

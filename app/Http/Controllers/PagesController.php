@@ -12,9 +12,11 @@ use App\Models\AppModels\Services;
 use App\Models\AppModels\Gallery;
 use App\Models\AppModels\ImageCategory;
 use App\Models\AppModels\Clients;
+use App\Models\AppModels\Projects;
 
 use App\Models\CustomModels\Helper;
 use Session;
+use DB;
 
 
 class PagesController extends Controller
@@ -80,6 +82,24 @@ class PagesController extends Controller
         error_log('count : '.count($clients));
 
         $data['clients'] = $clients;
+
+        $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
+
+        $projectsStatus = DB::table('projects')
+                        ->select('projectStatus', DB::raw('count(*) as total'))
+                        ->groupBy('projectStatus')
+                        ->pluck('total','projectStatus')->all();
+
+        $totalProjects=0;
+        foreach($projectsStatus as $key => $value){
+            error_log('->Projects is : '.$key.' -value '.$value);
+            $totalProjects+=$value;
+        }
+
+        $data['projects'] = $projects;
+        $data['projectsStatus'] = $projectsStatus;
+        $data['totalProjects'] = $totalProjects;
+
         /*whereHas('sValue', function (Builder $query) {
             $query->where('sValue', 'like', $host);
         })->get();
@@ -92,13 +112,27 @@ class PagesController extends Controller
         return view('pages.index')->with($data);
     }
 
-    public function commitments(){
+    public function commitments(Request $request){
+        $host = $request->getHttpHost();
+        error_log('->Host is : '.$host);
+
+        /**/
+        $company = SiteSettings::find(1)->where('sValue', $host)->first();
+        
         $companySettings = new CompanySettings;
         $companySettings->title =  "Our Commitments";;
         $companySettings->description = 'This is test for setting and getting values from model';
         $uuid = Str::uuid();
+
+        $term = 'Commitment';
+        $commitments = Gallery::where(['com_id' =>$company->companyId])
+                        ->with('imageCategory')
+                        ->whereHas('imageCategory', function($query) use ($term)  {
+                        $query->where('title', $term);
+                        })->get();
+
         error_log('->->uuid is : '.$uuid);
-        return view('pages.commitment')->with('companySettings',$companySettings);
+        return view('pages.commitment')->with('commitments',$commitments)->with('companySettings',$companySettings);
     }
 
     public function gallery(Request $request){
@@ -140,9 +174,35 @@ class PagesController extends Controller
         return view('pages.gallery')->with("title", $title)->with($data);
     }
 
-    public function projects(){
+    public function projects(Request $request){
+        $host = $request->getHttpHost();
+        error_log('->Host is : '.$host);
         $title = "Our Projects!";
-        return view('pages.projects', compact('title'));
+
+        /**/
+        $company = SiteSettings::find(1)->where('sValue', $host)->first();
+
+        //orderBy('id', 'DESC')->get();
+        $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
+
+        $projectsStatus = DB::table('projects')
+                        ->select('projectStatus', DB::raw('count(*) as total'))
+                        ->groupBy('projectStatus')
+                        ->pluck('total','projectStatus')->all();
+
+        $totalProjects=0;
+        foreach($projectsStatus as $key => $value){
+            error_log('->Projects is : '.$key.' -value '.$value);
+            $totalProjects+=$value;
+        }
+        $data = array( );
+        $data['title'] = $title;
+        $data['projects'] = $projects;
+        $data['projectsStatus'] = $projectsStatus;
+        $data['totalProjects'] = $totalProjects;
+
+        
+        return view('pages.projects')->with($data);
     }
 
 
@@ -204,6 +264,23 @@ class PagesController extends Controller
         error_log('count : '.count($clients));
 
         $data['clients'] = $clients;
+
+        $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
+
+        $projectsStatus = DB::table('projects')
+                        ->select('projectStatus', DB::raw('count(*) as total'))
+                        ->groupBy('projectStatus')
+                        ->pluck('total','projectStatus')->all();
+
+        $totalProjects=0;
+        foreach($projectsStatus as $key => $value){
+            error_log('->Projects is : '.$key.' -value '.$value);
+            $totalProjects+=$value;
+        }
+
+        $data['projects'] = $projects;
+        $data['projectsStatus'] = $projectsStatus;
+        $data['totalProjects'] = $totalProjects;
         /*whereHas('sValue', function (Builder $query) {
             $query->where('sValue', 'like', $host);
         })->get();
