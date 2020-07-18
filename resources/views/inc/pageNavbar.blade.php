@@ -2,7 +2,7 @@
 
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom"  id="navbar">
-    <a class="navbar-brand" href="https://asimgc.com/"><img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asimgc_Logo_2.png" ></a>
+    <a class="navbar-brand" href="https://dev.asimgc.com/"><img src="/storage/siteImages/{{Session::get('companySettigs')['logo']}}" alt="{{ config('app.name', 'Laravel') }}"></a>
     <button class="navbar-toggler border rounded" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
