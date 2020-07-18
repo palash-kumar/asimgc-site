@@ -1,12 +1,20 @@
 @extends('layouts.site')
 
+@section('styles')
+<link href="{{ asset('assets/odometer/odometer-theme-default.css') }}" rel="stylesheet">
+@endsection
+
+@section('script-head')
+<script src="{{ asset('assets/odometer/odometer.js') }}" ></script>
+@endsection
+
 @section('content')
 
 @include('pageComponents.carousel')
     
 <!-- About================================================== -->
 <section class="about-sec parallax-section fde" id="about" >
-    <div class="container">
+    <div class="container py-3">
         <div class="row">
             <div class="col-md-4" data-aos="zoom-in-left">
                 <h2 class="animated bounceInRight delay-1s"><small style="color: rgba(35, 35, 35, .5) !important;">Who We Are</small> About
@@ -69,27 +77,27 @@
 
 <!-- safety ================================================== -->
 <section id="safety" class="fde">
-    <div class="container">
-        <div class="row">
+    <div class="container py-3">
+        <div class="row ">
             <div class="col-md-12">
                 <div class="well text-center shadow" style="background: transparent;">
                     <h2 >Our <font class="h-style">Commitment</font></h2>
                 </div>
             </div>
         </div>
-        <div class="row content-center" id="commitment">
+        <div class="row content-center" id="commitments">
             @foreach ($commitments as $commitment)
             <div class="col-md-6 col-sm-6  col-6 px-1" data-aos="flip-left">
-                <div class="card mb-3" style="max-width: 540px;">
+                <div class="card quality-card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">
-                    <div class="col-md-4">
+                    <div class="col-md-4 align-self-center">
                         <!-- class="w-50 shadow border-circle" -->
-                        <img class="card-img" src="storage/siteImages/Gallery/{{$commitment->image_path}}" alt="Quality" class="w-50 shadow border-circle" >
+                        <img class="card-img" src="/storage/siteImages/Gallery/{{$commitment->image_path}}" alt="Quality" class="w-50 shadow border-circle" >
                     </div>
                     <div class="col-md-8">
                         <div class="card-body text-body">
-                        <h5 class="card-title"><span class="h-style">{{$commitment->title}}</span></h5>
-                        <p class="card-text">{{$commitment->description}}</p>
+                        <h5 class="card-title text-center"><span class="h-style">{{$commitment->title}}</span></h5>
+                        <p class="card-text text-justify">{{$commitment->description}}</p>
                         <center><a href=" https://asimgc.com/quality/" class="btn btn-info w-100" role="button">More Details <i class="fas fa-angle-right"></i></a></center>
                         </div>
                     </div>
@@ -97,70 +105,49 @@
                 </div>
             </div>
             @endforeach
-
-            
         </div>
     </div>
 </section>
 <!-- ./safety ================================================== -->
 <!-- self ================================================== -->
 <section id="self" class="fde">
-    <div class="container">
-        <div class="row">
+    <div class="container py-3">
+        <div class="row ">
             <div class="col-md-12">
                 <div class="well text-center shadow">
                     <h2>The <font class="h-style">Members</font></h2>
                 </div>
             </div>
         </div>
-        <div class="row content-center mb-2" >
 
-            <div class="col-md-3 col-sm-6  col-6">
-                <div class="our-team" id="team">
-                    <div class="pic" style="height: 250px">
-                        <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asim.jpg" alt="">
-                        <!--    <ul class="social">
-                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                            </ul> -->
-                    </div>
-                    <div class="team-content">
-                        <h5 class="title">Mr. Asim Chandra Nath</h5>
-                        <small class="post"><i>Chairman</i></small>
-                        <small>Email: <b>as.asim@ymail.com</b></small>
-                    </div>
-                    <div class="team-layer">
-                        <a href="#">Mr. Asim Chandra Nath</a>
-                        <span class="post">Chairman</span>
+        <div class="row content-center mt-2 mb-2" id="team">
+            <div class="col-md-4">
+                <div class="card team-card border-0 shadow">
+                    <div class="row">
+                        <div class="col-md-4 col-4 p-0">
+                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asim.jpg" alt="">
+                        </div>
+                        <div class="col-md-8 col-8 align-self-center text-light p-1">
+                            <h6 class="title text-center h-style">Mr. Asim Chandra Nath</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>Chairman</i></p>
+                            <p class="text-center">Email: <b>as.asim@ymail.com</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            
         </div>
-        
-        <div class="row content-center mt-2">
-            <div class="col-md-3 col-sm-6  col-6">
-                <div class="our-team">
-                    <div class="pic" style="height: 250px">
-                        <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Subash.jpg" alt="">
-                        <!--   <ul class="social">
-                               <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                               <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                               <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                               <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                           </ul> -->
-                    </div>
-                    <div class="team-content">
-                        <h5 class="title">Mr. Subash Chandra Nath</h5>
-                        <small class="post"><i>Business Development Manager</i></small>
-                        <small>Email: <b>subash.asim@yahoo.com</b></small>
-                    </div>
-                    <div class="team-layer">
-                        <a href="#">Mr. Subash Chandra Nath</a>
-                        <span class="post">Business Development Manager</span>
+        <div class="row content-center mt-2 mb-2">
+            <div class="col-md-4">
+                <div class="card team-card border-0 shadow">
+                    <div class="row">
+                        <div class="col-md-4 col-4 p-0">
+                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Subash.jpg" alt="">
+                        </div>
+                        <div class="col-md-8 col-8 align-self-center text-light p-1">
+                            <h6 class="title text-center h-style">Mr. Subash Chandra Nath</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>Business Development Manager</i></p>
+                            <p class="text-center">Email: <b>subash.asim@yahoo.com</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,7 +157,7 @@
 <!-- ./self ================================================== -->
 <!-- Clients ================================================== -->
 <section class="clients fde" id="clients" >
-    <div class="container">
+    <div class="container py-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
@@ -182,7 +169,7 @@
             @foreach ($clients as $client)
             <div class="col-6 col-md-3 my-1">
                 <div class="card">
-                    <img class="card-img-top" src="storage/siteImages/Clients/{{$client->image_path}}" height="100px">
+                    <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
                 </div>
             </div>
             @endforeach
@@ -190,8 +177,53 @@
     </div>
 </section>
 <!-- ./Clients End ================================================== -->
+
+<!-- Projects ================================================== -->
+<section class=" background-dot fde" data-aos="zoom-in-left" id="projects" >
+    <div class="container py-5" id="projects-div">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well text-center shadow">
+                    <h2>Our <font class="h-style">Projects</font></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center ">
+            <div class="col-md-12 mb-2">
+                <div class=" w-100 mb-3 py-3" ><!-- style="max-width: 540px;" -->
+                    <div class="row no-gutters justify-content-center text-dark" id="project-stats">
+                        <div class="col-md-2 mb-2 text-center">
+                            <h1 id="odometerTotal" class="odometer font-weight-bold px-2">0</h1>
+                            <p class="mb-0 text-secondary font-weight-bold">Total</p>
+                        </div>
+
+                        @foreach ($projectsStatus as $key => $value)
+                            @if ($key == 1)
+                            <div class="col-md-2 mb-2 text-center text-center">
+                                <input type="hidden" id="completed" value="{{$value}}" />
+                                <h1 id="odometer" class="odometer font-weight-bold text-success px-2">0</h1>
+                                <p class="mb-0 text-secondary font-weight-bold">Completed</p>
+                                
+                            </div>
+                            @endif
+
+                            @if ($key == 0)
+                            <div class="col-md-2 mb-2 text-center">
+                                <input type="hidden" id="ongoing" value="{{$value}}" />
+                                <h1 id="odometerOngoing" class="odometer font-weight-bold text-info px-2">0</h1>
+                                <p class="mb-0 text-secondary font-weight-bold">Ongoing</p>
+                            </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./Projects End ================================================== -->
 <section class="action-sec fde" id="gallery">
-    <div class="container">
+    <div class="container py-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
@@ -200,58 +232,109 @@
             </div>
         </div>
 
-        
-        
-        <div class="row image-box justify-content-center" id=”images-wrapper”>
-            <div class="col-md-12 text-center">
-                @if (count($frontGalery) > 0)
-                    @foreach ($frontGalery as $image)
-                        <a href="storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
-                            <img src="storage/siteImages/Gallery/{{$image->image_path}}" class="zoom img-fluid "  alt="">
-                        </a>
-                    @endforeach
+        <!-- -->
+        <div class="row">
+            <div class="col-md-12">
+          
+              <div id="mdb-lightbox-ui"></div>
+
+              <div class='container'>
+                @if (count($certificates) > 0)
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <h2 class="text-center"><font class="h-style">Certifications</font></h2>
+                    </div>
+                </div>
+                <div class="row image-box justify-content-center gallery-show" id=”images-wrapper”>
+                    <!-- Grid row -->
+                    <div class="gallery" id="gallery">
+                        <!-- Grid column -->
+                        @foreach ($certificates as $image)
+                        <div class="mb-3 pics animation all 2">
+                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
+                                <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
+                            </a>
+                        </div>
+                        @endforeach
+                        <!-- Grid column -->
+                    </div> 
+                    
+                </div>
                 @endif
+        
+                @if (count($frontGalery) > 0)
+                <div class="row justify-content-center pt-2">
+                    <div class="col-md-12">
+                        <h2 class="text-center"><font class="h-style">Photos</font></h2>
+                    </div>
+                </div>
+                <div class="row image-box justify-content-center" id=”images-wrapper”>
+        
+                    <!-- Grid row -->
+                    <div class="gallery" id="gallery">
+                        <!-- Grid column -->
+                        @foreach ($frontGalery as $image)
+                        <div class="mb-3 pics animation all 2">
+                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
+                                <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
+                            </a>
+                        </div>
+                        @endforeach
+
+                         @foreach ($gallery as $image)
+                        <div class="mb-3 pics animation all 2">
+                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
+                                <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
+                            </a>
+                        </div>
+                        @endforeach
+
+                        <!-- Grid column -->
+                    </div>                    
+                    
+                </div>
+                @endif
+        
                 
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ASIMGC 23MAY2021.jpg" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ASIMGC 23MAY2021.jpg" class="zoom img-fluid "  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO 14001-2015 14MAY2022-page-001.jpg" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO 14001-2015 14MAY2022-page-001.jpg" class="zoom img-fluid "  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO 9001.2015 04-APRIL-2022.jpg" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO 9001.2015 04-APRIL-2022.jpg" class="zoom img-fluid "  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO OHSAS 18001-2007  14MAY22EMS.jpg" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/cert-2k20/ISO OHSAS 18001-2007  14MAY22EMS.jpg" class="zoom img-fluid "  alt="">
-                </a>
-                <!--
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/License.jpg" class="fancybox" rel="ligthbox">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/License.jpg" class="zoom img-fluid "  alt="">
-                </a>-->
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/TRN.jpg" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/TRN.jpg" class="zoom img-fluid "  alt="">
-                </a><!--
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/Environment.jpg" class="fancybox" rel="ligthbox">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/Environment.jpg" class="zoom img-fluid "  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/OHS.jpg"  class="fancybox" rel="ligthbox">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/OHS.jpg" class="zoom img-fluid"  alt="">
-                </a>-->
-                
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/site1.png" class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/site1.png" class="zoom img-fluid "  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190423_155014_C.jpg"  class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190423_155014_C.jpg" class="zoom img-fluid"  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190326_140154_C.jpg"  class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190326_140154_C.jpg" class="zoom img-fluid"  alt="">
-                </a>
-                <a href="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190326_140105_C.jpg"  class="fancybox" rel="gallery1">
-                    <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Gallery/20190326_140105_C.jpg" class="zoom img-fluid"  alt="">
-                </a>
             </div>
-        </div>
+
+     
     </div>
 </section>
+
+@endsection
+
+@section('script')
+<script>
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+    });
+
+    $(window).scroll(function() {
+        var hT = $('#project-stats').offset().top,
+            hH = $('#project-stats').outerHeight(),
+            wH = $(window).height(),
+            wS = $(this).scrollTop();
+            //console.log((hT-wH) , wS);
+        if (wS > (hT+hH-wH)){
+            //$('#project-stats').fadeIn(3500);
+            setTimeout(function(){
+                var completed = $("#completed").val();
+                console.log("completed : "+completed);
+                odometer.innerHTML = completed;
+
+                odometerOngoing.innerHTML = $("#ongoing").val();
+                odometerTotal.innerHTML = {{$totalProjects}};
+
+                /*var completed = $("#completed").val();
+                console.log("completed : "+completed);
+                odometer.innerHTML = completed;*/
+            }, 500);
+        }
+    });
+    
+    
+    
+</script>
 @endsection

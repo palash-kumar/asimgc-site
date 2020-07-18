@@ -48,13 +48,17 @@ class PagesController extends Controller
         $services = Services::where(['com_id' => $company->companyId])->get();
         $term = 'Commitment';
         //$imgCat = ImageCategory::where(['title' => 'like'. "%$term%" ])->get();//where(['title' => 'like', '%' . Input::get('name') . '%'])->get();
+        
         $imgCats = ImageCategory::all();
-
+        /*where(['tagName' => 'frontGalery'])
+                                ->orWhere(['tagName' => 'certificates'])
+                                ->orWhere(['tagName' => 'slider'])->get();*/
         $data = array(
             'siteSettings' => $siteSettings,
             'services' => $services
 
         );
+
         Session::put('services', $services);
         /*
         ,
@@ -73,6 +77,8 @@ class PagesController extends Controller
                         })->get();
             
             $data[$imageCat->tagName] = $commitments;
+
+            //error_log('->Slider is : '.$data[$imageCat->tagName]);
         }
         
 
@@ -99,15 +105,10 @@ class PagesController extends Controller
         $data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
-
         /*whereHas('sValue', function (Builder $query) {
             $query->where('sValue', 'like', $host);
         })->get();
         */
-        //error_log('->siteSettings is : '.$siteSettings->sValue);
-        
-
-        $title = "Welcome to Laravel!";
         
         return view('pages.index')->with($data);
     }
