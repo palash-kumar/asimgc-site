@@ -36,7 +36,7 @@
                     <div class="col-md-12">
                         <h1>Our <font class="h-style">Services</font></h1>
                         <div class="category">
-                            @foreach ($services as $service)
+                            @foreach (Session::get('services') as $service)
                                 <p data-aos="zoom-in-left" data-aos-delay="450"><i class="{{$service->icon}}"></i> {{$service->title}}</p>
                             @endforeach
                         </div>

@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-
-use App\Models\AppModels\SiteSettings;
-use App\Models\SiteModels\CompanySettings;
-
-use Session;
+use App\Models\CustomModels\Helper;
 
 trait AuthenticatesUsers
 {
@@ -23,29 +19,7 @@ trait AuthenticatesUsers
      */
     public function showLoginForm(Request $request)
     {
-        $host = $request->getHttpHost();
-        error_log('->Host is : '.$host);
-        $company = SiteSettings::find(1)->where('sValue', $host)->first();
-        $companySettigs = new CompanySettings;
-        $companySettigs->com_id = $company->companyId;
-        Session::put('companySettigs', $companySettigs);
-
-        $siteSettings = SiteSettings::where('companyId', $company->companyId)->get();
-        foreach ($siteSettings as $setting){
-            switch ($setting->sName) {
-                case 'NAME':
-                    $companySettigs->title = $setting->sValue;
-                    break;
-                case 'LOGO':
-                    $companySettigs->logo = $setting->sValue;
-                    break;
-                default:
-                    
-                    break;
-            }
-        }
-        Session::put('companySettigs', $companySettigs);
-
+        Helper::checkSession($request);
         return view('auth.login');
     }
 
@@ -178,7 +152,7 @@ trait AuthenticatesUsers
      */
     public function username()
     {
-        return 'username';
+        return 'email';
     }
 
     /**

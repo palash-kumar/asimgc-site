@@ -11,6 +11,7 @@ class CompanySettings extends Model
     private $title='';
     private $description = '';
     private $logo = '';
+    private $services = null;
 
     
 }

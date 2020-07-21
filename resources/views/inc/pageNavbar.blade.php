@@ -23,7 +23,7 @@
             <a class="nav-link js-scroll-trigger" href="#team" >Members</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link js-scroll-trigger" href="#clients">Clients</a>
+            <a class="nav-link js-scroll-trigger" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="{{ route('gallery') }}" >Gallery</a>

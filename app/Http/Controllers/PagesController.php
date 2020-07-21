@@ -13,6 +13,7 @@ use App\Models\AppModels\Gallery;
 use App\Models\AppModels\ImageCategory;
 use App\Models\AppModels\Clients;
 use App\Models\AppModels\Projects;
+use App\User;
 
 use App\Models\CustomModels\Helper;
 use Session;
@@ -31,42 +32,29 @@ class PagesController extends Controller
         $this->middleware('auth', ['except'=>['index', 'commitments', 'gallery', 'projects', 'commitments', 'commitments']]);
     }
 
+    
+
     public function index(Request $request){
-        $host = $request->getHttpHost();
-        error_log('->Host is : '.$host);
 
-        /**/
-        $company = SiteSettings::find(1)->where('sValue', $host)->first();
+        // Checking Session
+        Helper::checkSession($request);
 
-        // Select * from SiteSettings where 'companyId' = 'asimgc-0813';
-        $siteSettings = SiteSettings::where(['companyId' => $company->companyId])->get();//->pluck('companyId','asimgc-0813')->first();
-       
-        foreach ($siteSettings as $settings) {
-            error_log('->siteSettings is : '.$settings.'\n');
-        }
 
-        $services = Services::where(['com_id' => $company->companyId])->get();
+        $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
+        
+        // error_log('->siteSettings is : '.$companySettigs->services.'\n');
+        
         $term = 'Commitment';
-        //$imgCat = ImageCategory::where(['title' => 'like'. "%$term%" ])->get();//where(['title' => 'like', '%' . Input::get('name') . '%'])->get();
         
         $imgCats = ImageCategory::all();
-        /*where(['tagName' => 'frontGalery'])
-                                ->orWhere(['tagName' => 'certificates'])
-                                ->orWhere(['tagName' => 'slider'])->get();*/
+        
         $data = array(
-            'siteSettings' => $siteSettings,
-            'services' => $services
+            //'siteSettings' => $siteSettings,
+            'services' => $companySettigs->services
 
         );
 
-        Session::put('services', $services);
-        /*
-        ,
-            'commitments' => $commitments,
-            'clients' => $clients,
-            'galleryImages' => $galleryImages,
-            'sliderImages' => $sliderImages
-         */
         foreach ($imgCats as $imageCat) {
             $term = $imageCat->title;
             error_log('->imageCat is : '.$imageCat->tagName);
@@ -81,7 +69,6 @@ class PagesController extends Controller
             //error_log('->Slider is : '.$data[$imageCat->tagName]);
         }
         
-
         //error_log('count : '.count($commitments));
 
         $clients = Clients::where(['com_id' => $company->companyId, 'status' => TRUE])->get();
@@ -105,26 +92,19 @@ class PagesController extends Controller
         $data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
-        /*whereHas('sValue', function (Builder $query) {
-            $query->where('sValue', 'like', $host);
-        })->get();
-        */
-        
+        //$data['services'] = $companySettigs->services;
+
         return view('pages.index')->with($data);
     }
 
     public function commitments(Request $request){
-        $host = $request->getHttpHost();
-        error_log('->Host is : '.$host);
 
-        /**/
-        $company = SiteSettings::find(1)->where('sValue', $host)->first();
+        // Checking Session
+        Helper::checkSession($request);
+
+        $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
         
-        $companySettings = new CompanySettings;
-        $companySettings->title =  "Our Commitments";;
-        $companySettings->description = 'This is test for setting and getting values from model';
-        $uuid = Str::uuid();
-
         $term = 'Commitment';
         $commitments = Gallery::where(['com_id' =>$company->companyId])
                         ->with('imageCategory')
@@ -132,24 +112,20 @@ class PagesController extends Controller
                         $query->where('title', $term);
                         })->get();
 
-        error_log('->->uuid is : '.$uuid);
-        return view('pages.commitment')->with('commitments',$commitments)->with('companySettings',$companySettings);
+        //error_log('->->uuid is : '.$uuid);
+        return view('pages.commitment')->with('commitments',$commitments);
     }
 
     public function gallery(Request $request){
-        //error_log('->->gallery is : '.$request->getHttpHost());
         
-        $company = Session::get("company");
-        if($company == null){
-            $helper = new Helper();
-            $helper->getSettings($request);
-        }
+        // Checking Session
+        Helper::checkSession($request);
 
         $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
 
         $data = array( );
 
-        //$term = "certificates";
         // Only Certificates
         $certificates = Gallery::where(['com_id' =>$company->companyId])
                         ->with('imageCategory')
@@ -169,19 +145,19 @@ class PagesController extends Controller
 
         $data['gallery'] = $gallery;
 
-        
-
         $title = "Gallery";
         return view('pages.gallery')->with("title", $title)->with($data);
     }
 
     public function projects(Request $request){
-        $host = $request->getHttpHost();
-        error_log('->Host is : '.$host);
-        $title = "Our Projects!";
+        
+        // Checking Session
+        Helper::checkSession($request);
 
-        /**/
-        $company = SiteSettings::find(1)->where('sValue', $host)->first();
+        $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
+
+        $title = "Our Projects!";
 
         //orderBy('id', 'DESC')->get();
         $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
@@ -209,41 +185,25 @@ class PagesController extends Controller
 
 
     public function developmentTest(Request $request){
-        $host = $request->getHttpHost();
-        error_log('->Host is : '.$host);
-
-        /**/
-        $company = SiteSettings::find(1)->where('sValue', $host)->first();
-
-        // Select * from SiteSettings where 'companyId' = 'asimgc-0813';
-        $siteSettings = SiteSettings::where(['companyId' => $company->companyId])->get();//->pluck('companyId','asimgc-0813')->first();
-       
-        foreach ($siteSettings as $settings) {
-            error_log('->siteSettings is : '.$settings.'\n');
-        }
-
-        $services = Services::where(['com_id' => $company->companyId])->get();
-        $term = 'Commitment';
-        //$imgCat = ImageCategory::where(['title' => 'like'. "%$term%" ])->get();//where(['title' => 'like', '%' . Input::get('name') . '%'])->get();
+        // Checking Session
+        Helper::checkSession($request);
         
+
+        $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
+
+        
+
+        //$user = User::find(1)->where(['uuid' => auth()->user()->uuid])->first();
+        //error_log("In developmentTest : ".$user->uuid);
+        error_log("In developmentTest : ".auth()->user()->userRole->name);//services_id
+
+        
+
+        // Testing end
+        
+
         $imgCats = ImageCategory::all();
-        /*where(['tagName' => 'frontGalery'])
-                                ->orWhere(['tagName' => 'certificates'])
-                                ->orWhere(['tagName' => 'slider'])->get();*/
-        $data = array(
-            'siteSettings' => $siteSettings,
-            'services' => $services
-
-        );
-
-        Session::put('services', $services);
-        /*
-        ,
-            'commitments' => $commitments,
-            'clients' => $clients,
-            'galleryImages' => $galleryImages,
-            'sliderImages' => $sliderImages
-         */
         foreach ($imgCats as $imageCat) {
             $term = $imageCat->title;
             error_log('->imageCat is : '.$imageCat->tagName);
@@ -282,6 +242,7 @@ class PagesController extends Controller
         $data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
+        $data['services'] = Session::get("services");
         /*whereHas('sValue', function (Builder $query) {
             $query->where('sValue', 'like', $host);
         })->get();

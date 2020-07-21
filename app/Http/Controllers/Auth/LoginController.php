@@ -6,9 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\AppModels\SiteSettings;
 use App\Models\SiteModels\CompanySettings;
+use App\Models\AppModels\UserRoles;
+use App\User;
+
 use Session;
+
+use App\Models\CustomModels\Helper;
 
 class LoginController extends Controller
 {
@@ -62,30 +69,7 @@ class LoginController extends Controller
     {   
 
         $input = $request->all();
-        if(Session::get('companySettigs') == null ){
-            $host = $request->getHttpHost();
-            error_log('->Host is : '.$host);
-            $company = SiteSettings::find(1)->where('sValue', $host)->first();
-            $companySettigs = new CompanySettings;
-            $companySettigs->com_id = $company->companyId;
-            Session::put('companySettigs', $companySettigs);
-
-            $siteSettings = SiteSettings::where('companyId', $company->companyId)->get();
-            foreach ($siteSettings as $setting){
-                switch ($setting->sName) {
-                    case 'NAME':
-                        $companySettigs->title = $setting->sValue;
-                        break;
-                    case 'LOGO':
-                        $companySettigs->logo = $setting->sValue;
-                        break;
-                    default:
-                        
-                        break;
-                }
-            }
-            Session::put('companySettigs', $companySettigs);
-        }
+        Helper::checkSession($request);
         
 
         $this->validate($request, [
@@ -100,11 +84,42 @@ class LoginController extends Controller
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
+        $userRoles = UserRoles::where(['status' => true])->get();
+        //error_log("In LOGIN userRole : ".$userRole->id." - ".$userRole->name);
+
+        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'], 'status' => 1)))
 
         {
+            //getting role
+            /*$term = 'Admin';
+            // Testing to implement in LoginController
+            $userLogin = User::find(1)->where(['uuid' => auth()->user()->uuid])
+                                    ->with('userRole')
+                                    ->whereHas('userRole', function($query) use ($term)  {
+                                        $query->where('name', $term);
+                                        })->first();
+                                        */
+            $authorized = false;
 
-            return redirect()->route('home');
+            foreach($userRoles as $role){
+                error_log("In LOGIN userRole : ".$role->id." - ".$role->name);
+                if(auth()->user()->user_roles_id == $role->id){
+                    $authorized = true;
+                    break;
+                }
+            }
+
+            error_log("Login authorization state : ".$authorized);
+
+            if($authorized){
+                error_log("In LOGIN AFTER AUTHENTICATION PASS : ".auth()->user()->email);
+                return redirect()->route('home');
+            }else{
+                error_log("Access Unauthorized: ");
+                Auth::logout();
+                return redirect()->route('login')
+                ->with('error','Email-Address And Password Are Wrong.');
+            }
 
         }else{
 
@@ -117,4 +132,5 @@ class LoginController extends Controller
           
 
     }
+
 }
