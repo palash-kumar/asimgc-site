@@ -11,28 +11,34 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="background-color: rgba(248, 248, 248, .75);">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-            <a class="nav-link js-scroll-trigger" href="/app/dev" >Home</a>
+            <a class="nav-link js-scroll-trigger" href="/" >Home</a>
         </li>
+        <!-- 
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="#about">About</a>
         </li>
+        -->
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="{{ route('commitment') }}">Comitments</a>
         </li>
+        <!-- 
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="#team" >Members</a>
         </li>
+        -->
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="{{ route('gallery') }}" >Gallery</a>
         </li>
+        <!-- 
         <li class="nav-item active">
-            <a class="nav-link js-scroll-trigger" href="#contact" >Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#team" >Members</a>
         </li>
+        -->
       </ul>
-
+      <!--
       <div id="sec-nav-to-side" style="visibility: hidden;">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -63,7 +69,7 @@
             </li>
           </ul>
       </div>
-      <!--
+      
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
