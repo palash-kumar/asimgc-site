@@ -13,6 +13,10 @@
             @if (!Auth::guest())
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('settings.index') }}">{{ __('Settings') }}</a>
                 </li>
@@ -69,10 +73,10 @@
 </nav>
 
 @if (!Auth::guest())
-<div class="sidenav float-right position-sticky mt-5">
+<!--<div class="sidenav float-right position-sticky mt-5">
     <a href="#about">About</a>
     <a href="#services">Services</a>
     <a href="#clients">Clients</a>
     <a href="#contact">Contact</a>
-</div>
+</div>-->
 @endif

@@ -38,15 +38,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-        // creating Many-To-One relation with the users UserRoles table 
-        public function userRole(){
-            
-            return $this->belongsTo('App\Models\AppModels\UserRoles', 'user_roles_id');
-        }
+    // creating Many-To-One relation with the users UserRoles table 
+    public function userRole(){
+        
+        return $this->belongsTo('App\Models\AppModels\UserRoles', 'user_roles_id');
+    }
 
-        // creating One-To-Many relation with the UsersServices table 
-        public function userServices(){
-            return $this->hasMany('App\Models\AppModels\UserServices');
-        }
+    // creating Many-To-One relation with the users UserRoles table 
+    public function designation(){
+        
+        return $this->belongsTo('App\Models\AppModels\Designations', 'designations_id');
+    }
+
+    // creating One-To-Many relation with the UsersServices table 
+    public function userServices(){
+        return $this->hasMany('App\Models\AppModels\UserServices');
+    }
 
 }

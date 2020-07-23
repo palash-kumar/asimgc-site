@@ -121,90 +121,73 @@
         </div>
 
         <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 1)
+
             <div class="col-md-4">
                 <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asim.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
-                            <h6 class="title text-center h-style">Mr. Asim Chandra Nath</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>Chairman</i></p>
-                            <p class="text-center">Email: <b>as.asim@ymail.com</b></p>
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
                         </div>
                     </div>
                 </div>
             </div>
+                
+            @endif
+            @endforeach
         </div>
-        <div class="row content-center mt-2 mb-2">
+
+        <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 2)
+
             <div class="col-md-4">
                 <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Subash.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
-                            <h6 class="title text-center h-style">Mr. Subash Chandra Nath</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>Business Development Manager</i></p>
-                            <p class="text-center">Email: <b>subash.asim@yahoo.com</b></p>
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
                         </div>
                     </div>
                 </div>
             </div>
+                
+            @endif
+            @endforeach
         </div>
-
-        <!--<div class="row content-center mb-2" >
-
-            <div class="col-md-3 col-sm-6  col-6">
-                <div class="our-team" id="team">
-                    <div class="pic" style="height: 250px">
-                        <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asim.jpg" alt="">
-                        <!--    <ul class="social">
-                                <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                            </ul> -- >
-                    </div>
-                    <div class="team-content">
-                        <h5 class="title">Mr. Asim Chandra Nath</h5>
-                        <small class="post"><i>Chairman</i></small>
-                        <small>Email: <b>as.asim@ymail.com</b></small>
-                    </div>
-                    <div class="team-layer">
-                        <a href="#">Mr. Asim Chandra Nath</a>
-                        <span class="post">Chairman</span>
-                    </div>
-                </div>
-            </div>
-
-            
-        </div>-->
         
-        <!--<div class="row content-center mt-2">
-            <div class="col-md-3 col-sm-6  col-6">
-                <div class="our-team">
-                    <div class="pic" style="height: 250px">
-                        <img src="http://asimgc.com/wp-content/themes/asimgc_html/images/Subash.jpg" alt="">
-                        <!--   <ul class="social">
-                               <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                               <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                               <li><a href="#"><i class="fab fa-google-plus"></i></a></li>
-                               <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                           </ul> -- >
-                    </div>
-                    <div class="team-content">
-                        <h5 class="title">Mr. Subash Chandra Nath</h5>
-                        <small class="post"><i>Business Development Manager</i></small>
-                        <small>Email: <b>subash.asim@yahoo.com</b></small>
-                    </div>
-                    <div class="team-layer">
-                        <a href="#">Mr. Subash Chandra Nath</a>
-                        <span class="post">Business Development Manager</span>
+        <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 3)
+
+            <div class="col-md-4">
+                <div class="card team-card border-0 shadow">
+                    <div class="row">
+                        <div class="col-md-4 col-4 p-0">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
+                        </div>
+                        <div class="col-md-8 col-8 align-self-center text-light p-1">
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>-->
+                
+            @endif
+            @endforeach
+        </div>
     </div>
 </section>
 <!-- ./self ================================================== -->

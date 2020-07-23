@@ -82,7 +82,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'com_id'=>$cId,
-            'uuid' => Str::uuid()
+            'uuid' => (string)Str::uuid()
         ]);
     }
 }

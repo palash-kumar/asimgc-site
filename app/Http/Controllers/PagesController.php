@@ -89,9 +89,12 @@ class PagesController extends Controller
             $totalProjects+=$value;
         }
 
+        $users = User::whereNotNull('designations_id')->orderBy('designations_id','asc')->get();
+
         $data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
+        $data['users'] = $users;
         //$data['services'] = $companySettigs->services;
 
         return view('pages.index')->with($data);
@@ -239,10 +242,13 @@ class PagesController extends Controller
             $totalProjects+=$value;
         }
 
+        $users = User::whereNotNull('designations_id')->orderBy('designations_id','asc')->get();
+
         $data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
         $data['services'] = Session::get("services");
+        $data['users'] = $users;
         /*whereHas('sValue', function (Builder $query) {
             $query->where('sValue', 'like', $host);
         })->get();

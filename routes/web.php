@@ -32,7 +32,17 @@ Auth::routes();
 
 Route::get('app/home', 'HomeController@index')->name('home');
 /* Controllers at Application End; Requires Login */
+Route::resource('app/users','UsersController');
+Route::post('app/users/updateStatus/{id}','UsersController@updateStatus');
+Route::put('app/users/updateUserInfo/{id}','UsersController@updateUserInfo');
+Route::put('app/users/updateUserDesignation/{id}','UsersController@updateUserDesignation');
+Route::put('app/users/updateUserRole/{id}','UsersController@updateUserRole');
+
 Route::resource('app/services','ServicesController');
+
+Route::resource('app/designations','DesignationsController');
+Route::post('app/designations/updateStatus/{id}','DesignationsController@updateStatus');
+Route::put('app/designations/updateDisplaySeq/{id}','DesignationsController@updateDisplaySeq');
 
 Route::resource('app/settings','SiteSettingsController');
 Route::post('app/settings/updateStatus/{id}','SiteSettingsController@updateStatus');
