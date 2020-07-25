@@ -1,14 +1,14 @@
 
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom"  id="navbar">
+<nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom "  id="navbar">
     <a class="navbar-brand" href="https://dev.asimgc.com/"><img src="/storage/siteImages/{{Session::get('companySettigs')['logo']}}" alt="{{ config('app.name', 'Laravel') }}"></a>
     <button class="navbar-toggler border rounded" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
 
   
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="background-color: rgba(248, 248, 248, .75);">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
             <a class="nav-link js-scroll-trigger" href="/" >Home</a>
