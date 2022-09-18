@@ -11,7 +11,7 @@
 @section('content')
 
 @include('pageComponents.carousel')
-    
+
 <!-- About================================================== -->
 <section class="about-sec parallax-section fde" id="about" >
     <div class="container py-3">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
 
     <div class="modal fade bd-example-modal-lg h-100 " tabindex="-1" role="dialog" aria-labelledby="companyProfile" aria-hidden="true" id="asimgcProfile">
@@ -125,7 +125,7 @@
                 <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Asim.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/Asim.jpg" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
                             <h6 class="title text-center h-style">Mr. Asim Chandra Nath</h6>
@@ -141,7 +141,7 @@
                 <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="http://asimgc.com/wp-content/themes/asimgc_html/images/Subash.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/Subash.jpg" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
                             <h6 class="title text-center h-style">Mr. Subash Chandra Nath</h6>
@@ -203,7 +203,7 @@
                                 <input type="hidden" id="completed" value="{{$value}}" />
                                 <h1 id="odometer" class="odometer font-weight-bold text-success px-2">0</h1>
                                 <p class="mb-0 text-secondary font-weight-bold">Completed</p>
-                                
+
                             </div>
                             @endif
 
@@ -235,7 +235,7 @@
         <!-- -->
         <div class="row">
             <div class="col-md-12">
-          
+
               <div id="mdb-lightbox-ui"></div>
 
               <div class='container'>
@@ -257,11 +257,11 @@
                         </div>
                         @endforeach
                         <!-- Grid column -->
-                    </div> 
-                    
+                    </div>
+
                 </div>
                 @endif
-        
+
                 @if (count($frontGalery) > 0)
                 <div class="row justify-content-center pt-2">
                     <div class="col-md-12">
@@ -269,7 +269,7 @@
                     </div>
                 </div>
                 <div class="row image-box justify-content-center" id=”images-wrapper”>
-        
+
                     <!-- Grid row -->
                     <div class="gallery" id="gallery">
                         <!-- Grid column -->
@@ -290,15 +290,15 @@
                         @endforeach
 
                         <!-- Grid column -->
-                    </div>                    
-                    
+                    </div>
+
                 </div>
                 @endif
-        
-                
+
+
             </div>
 
-     
+
     </div>
 </section>
 
@@ -333,8 +333,8 @@
             }, 500);
         }
     });
-    
-    
-    
+
+
+
 </script>
 @endsection
