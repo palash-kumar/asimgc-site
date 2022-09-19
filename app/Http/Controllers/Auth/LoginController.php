@@ -66,11 +66,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
 
-    {   
+    {
 
         $input = $request->all();
         Helper::checkSession($request);
-        
+
 
         $this->validate($request, [
 
@@ -80,7 +80,7 @@ class LoginController extends Controller
 
         ]);
 
-  
+
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
@@ -113,7 +113,7 @@ class LoginController extends Controller
 
             if($authorized){
                 error_log("In LOGIN AFTER AUTHENTICATION PASS : ".auth()->user()->email);
-                return redirect()->route('home');
+                return redirect()->route('/home');
             }else{
                 error_log("Access Unauthorized: ");
                 Auth::logout();
@@ -129,7 +129,7 @@ class LoginController extends Controller
 
         }
 
-          
+
 
     }
 

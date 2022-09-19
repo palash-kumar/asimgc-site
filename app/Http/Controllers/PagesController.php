@@ -32,7 +32,7 @@ class PagesController extends Controller
         $this->middleware('auth', ['except'=>['index', 'commitments', 'gallery', 'projects', 'commitments', 'commitments']]);
     }
 
-    
+
 
     public function index(Request $request){
 
@@ -42,13 +42,13 @@ class PagesController extends Controller
 
         $company = Session::get("company");
         $companySettigs = Session::get("companySettigs");
-        
+
         // error_log('->siteSettings is : '.$companySettigs->services.'\n');
-        
+
         $term = 'Commitment';
-        
+
         $imgCats = ImageCategory::all();
-        
+
         $data = array(
             //'siteSettings' => $siteSettings,
             'services' => $companySettigs->services
@@ -63,12 +63,12 @@ class PagesController extends Controller
                         ->whereHas('imageCategory', function($query) use ($term)  {
                         $query->where('title', $term);
                         })->get();
-            
+
             $data[$imageCat->tagName] = $commitments;
 
             //error_log('->Slider is : '.$data[$imageCat->tagName]);
         }
-        
+
         //error_log('count : '.count($commitments));
 
         $clients = Clients::where(['com_id' => $company->companyId, 'status' => TRUE])->get();
@@ -88,7 +88,6 @@ class PagesController extends Controller
             error_log('->Projects is : '.$key.' -value '.$value);
             $totalProjects+=$value;
         }
-
         $users = User::whereNotNull('designations_id')->orderBy('designations_id','asc')->get();
 
         $data['projects'] = $projects;
@@ -107,7 +106,7 @@ class PagesController extends Controller
 
         $company = Session::get("company");
         $companySettigs = Session::get("companySettigs");
-        
+
         $term = 'Commitment';
         $commitments = Gallery::where(['com_id' =>$company->companyId])
                         ->with('imageCategory')
@@ -120,7 +119,7 @@ class PagesController extends Controller
     }
 
     public function gallery(Request $request){
-        
+
         // Checking Session
         Helper::checkSession($request);
 
@@ -135,11 +134,11 @@ class PagesController extends Controller
                         ->whereHas('imageCategory', function($query)  {// use ($term)
                         $query->where('tagName', 'certificates');
                         })->Where(['status' => true])->get();
-        
+
         error_log('->Host is : '.count($certificates));
         $data['certificates'] = $certificates;
-        
-        // Only Front gallery and gallery where **Front** gallery contains images for displaying in main page 
+
+        // Only Front gallery and gallery where **Front** gallery contains images for displaying in main page
         $gallery = Gallery::where(['com_id' =>$company->companyId])
                         ->with('imageCategory')
                         ->whereHas('imageCategory', function($query)  {// use ($term)
@@ -153,7 +152,7 @@ class PagesController extends Controller
     }
 
     public function projects(Request $request){
-        
+
         // Checking Session
         Helper::checkSession($request);
 
@@ -181,7 +180,7 @@ class PagesController extends Controller
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
 
-        
+
         return view('pages.projects')->with($data);
     }
 
@@ -190,21 +189,21 @@ class PagesController extends Controller
     public function developmentTest(Request $request){
         // Checking Session
         Helper::checkSession($request);
-        
+
 
         $company = Session::get("company");
         $companySettigs = Session::get("companySettigs");
 
-        
+
 
         //$user = User::find(1)->where(['uuid' => auth()->user()->uuid])->first();
         //error_log("In developmentTest : ".$user->uuid);
         error_log("In developmentTest : ".auth()->user()->userRole->name);//services_id
 
-        
+
 
         // Testing end
-        
+
 
         $imgCats = ImageCategory::all();
         foreach ($imgCats as $imageCat) {
@@ -215,12 +214,12 @@ class PagesController extends Controller
                         ->whereHas('imageCategory', function($query) use ($term)  {
                         $query->where('title', $term);
                         })->get();
-            
+
             $data[$imageCat->tagName] = $commitments;
 
             //error_log('->Slider is : '.$data[$imageCat->tagName]);
         }
-        
+
 
         //error_log('count : '.count($commitments));
 
@@ -253,8 +252,8 @@ class PagesController extends Controller
             $query->where('sValue', 'like', $host);
         })->get();
         */
-        
-        
+
+
         $title = "Our Projects!";
         return view('pages.dev')->with($data);
     }

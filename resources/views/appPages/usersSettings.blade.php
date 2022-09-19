@@ -105,7 +105,15 @@
                     <td>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser('{{$user->uuid}}')">
-                            Edit
+                              S
+                            </button>
+                            {!! Form::open(['action'=>['UsersController@manageSkills', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
+                                {{Form::hidden('_method','PUT')}}
+                                {{Form::submit('Sett',['class'=>'btn btn-info rounded btn-sm'])}}
+                            {!! Form::close() !!}
+
+                            <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser('{{$user->uuid}}')">
+                              Edit
                             </button>
                             {!! Form::open(['action'=>['UsersController@destroy', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
                                 {{Form::hidden('_method','DELETE')}}

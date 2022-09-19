@@ -323,10 +323,11 @@
                 var completed = $("#completed").val();
                 console.log("completed : "+completed);
                 odometer.innerHTML = completed;
-
-                odometerOngoing.innerHTML = $("#ongoing").val();
+                console.log("totalProjects : "+{{$totalProjects}});
+                if(typeof odometerOngoing!='undefined')
+                    odometerOngoing.innerHTML = $("#ongoing").val();
                 odometerTotal.innerHTML = {{$totalProjects}};
-
+                //odometerTotal
                 /*var completed = $("#completed").val();
                 console.log("completed : "+completed);
                 odometer.innerHTML = completed;*/

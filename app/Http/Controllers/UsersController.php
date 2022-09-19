@@ -13,6 +13,8 @@ use App\Models\CustomModels\Helper;
 
 use App\Models\AppModels\UserRoles;
 use App\Models\AppModels\Designations;
+use App\Models\AppModels\Services;
+use App\Models\AppModels\UserServices;
 
 use Session;
 use DB;
@@ -207,5 +209,58 @@ class UsersController extends Controller
         $user->save();
 
         return redirect('/app/users')->with('success', $user->name.'\'s Role is Successfully updated to '.$user->userRole->name);
+    }
+
+    public function manageSkills(Request $request, $id){
+
+        $user = User::where('uuid', $id)->first();
+        $user->user_roles_id = $request->input('role-'.$id);
+
+        $services = Services::all();
+        //error_log("mobile ".$request->input('role-'.$id));
+        $data = array(
+            'user' => $user,
+            'services' => $services
+        );
+
+        return view('appPages.userSkillsManagement')->with($data);
+    }
+
+    public function assignService(Request $request, $id){
+
+        $user = User::where('uuid', $id)->first();
+
+        error_log("assignService : ". $user->id." service : ".$request->service);
+
+        $flag = false;
+        $msg = "";
+        $userService = UserServices::where([ "services_id" => $request->service])->where([ "user_id" => $user->id])->first(); // new UserServices();
+        error_log("userService : ". $userService);
+        if ($userService == null) {
+            $userService = new UserServices();
+            $userService->user_id = $user->id;
+            $userService->services_id = $request->service;
+            $userService->save();
+            $flag = true;
+            $msg = "Service is Successfully Assigned";
+        } else {
+            $msg = "Service is Successfully Removed from user.";
+            $userService->delete();
+        }
+        
+        $data = array(
+            'flag' => $flag,
+            'msg' => $msg,
+            'user' => $user
+        );
+        
+        /*if($user->status)
+            $user->status = FALSE;
+        else
+            $user->status = TRUE;
+
+        $user->save();*/
+
+        return response()->json(['data'=>$data]);
     }
 }
