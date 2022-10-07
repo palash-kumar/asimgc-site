@@ -113,7 +113,7 @@ class LoginController extends Controller
 
             if($authorized){
                 error_log("In LOGIN AFTER AUTHENTICATION PASS : ".auth()->user()->email);
-                return redirect()->route('app/home');
+                return redirect()->route('home');
             }else{
                 error_log("Access Unauthorized: ");
                 Auth::logout();

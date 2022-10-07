@@ -15,6 +15,8 @@ use App\Models\AppModels\UserRoles;
 use App\Models\AppModels\Designations;
 use App\Models\AppModels\Services;
 use App\Models\AppModels\UserServices;
+use Yajra\DataTables\DataTables;
+use App\Models\CustomModels\Response;
 
 use Session;
 use DB;
@@ -49,6 +51,18 @@ class UsersController extends Controller
             'designations' => $designations,
             'roles' => $roles
         );
+
+        if ($request->ajax()) {
+            //$users = User::with('userRole', 'designation', 'userServices');
+            $users = User::orderBy('designations_id','asc')->with('userRole', 'designation', 'userServices')->get();//User::select('*');
+            return Datatables::of($users)->toJson();//make(true)
+            /*return DataTables::eloquent($users)
+                ->addColumn('users', function (Post $post) {
+                    return $post->users->name;
+                })
+                ->toJson();*/
+        }
+
         return view('appPages.usersSettings')->with($data);
     }
 
@@ -125,21 +139,24 @@ class UsersController extends Controller
     public function updateStatus(Request $request, $id){
 
         $user = User::where('uuid', $id)->first();
-        if($user->status)
+        $msg = 'ACTIVE';
+        if($user->status){
             $user->status = FALSE;
+            $msg = 'INACTIVE';
+        }
         else
             $user->status = TRUE;
 
         $user->save();
-
-        return response()->json(['user'=>$user]);
+        return response()->json(Response::jsonResponse(200, 'success', $user->name.'\'s Status is Successfully updated to '.$msg, $user));
+        //return response()->json(['user'=>$user]);
     }
 
 
     public function updateUserInfo(Request $request, $id){
 
         $user = User::where('uuid', $id)->first();
-        
+
         error_log("mobile ".$request->input('emobile'));
         error_log("mobile ".$request->input('eemail'));
         //// Handle File Upload
@@ -156,24 +173,24 @@ class UsersController extends Controller
 
             // Upload Image
             $path = $request->file('user_image')->storeAs('public/siteImages/UserImages', $filenameToStore);
-        
-        
+
+
             //if($user->user_image != $filenameToStore){
                 if($user->image_path != 'noImage.jpg' || !empty($user->image_path)){
                     // Delete Image
                     Storage::delete('public/siteImages/UserImages/'.$user->user_image);
                 }
             //}
-        
+
         }else{
             error_log('->user_image is NULL ');
             $filenameToStore = "noImage.jpg";
         }
-        
-        
+
+
         if(!empty($request->input('emobile')))
             $user->mobile = $request->input('emobile');
-        
+
         if(!empty($request->input('eemail')))
             $user->email = $request->input('eemail');
 
@@ -190,12 +207,13 @@ class UsersController extends Controller
     public function updateUserDesignation(Request $request, $id){
 
         $user = User::where('uuid', $id)->first();
-        $user->designations_id = $request->input('desig-'.$id);
+        $user->designations_id = $request->input('desig');
         //error_log("mobile ".$request->input('desig-'.$id));
 
         $user->save();
 
-        return redirect('/app/users')->with('success', $user->name.'\'s Designation is Successfully updated to '.$user->designation->title);
+        return response()->json(Response::jsonResponse(200, 'success', $user->name.'\'s Designation is Successfully updated to '.$user->designation->title, $user));
+        //return redirect('/app/users')->with('success', $user->name.'\'s Designation is Successfully updated to '.$user->designation->title);
     }
 
 
@@ -203,12 +221,12 @@ class UsersController extends Controller
     public function updateUserRole(Request $request, $id){
 
         $user = User::where('uuid', $id)->first();
-        $user->user_roles_id = $request->input('role-'.$id);
-        //error_log("mobile ".$request->input('role-'.$id));
+        $user->user_roles_id = $request->input('role');
+        error_log(">ROLE ".$request->input('role'));
 
         $user->save();
 
-        return redirect('/app/users')->with('success', $user->name.'\'s Role is Successfully updated to '.$user->userRole->name);
+        return response()->json(Response::jsonResponse(200, 'success', $user->name.'\'s Role is Successfully updated to '.$user->userRole->name, $user));//redirect('/app/users')->with('success', $user->name.'\'s Role is Successfully updated to '.$user->userRole->name);
     }
 
     public function manageSkills(Request $request, $id){
@@ -247,13 +265,13 @@ class UsersController extends Controller
             $msg = "Service is Successfully Removed from user.";
             $userService->delete();
         }
-        
+
         $data = array(
             'flag' => $flag,
             'msg' => $msg,
             'user' => $user
         );
-        
+
         /*if($user->status)
             $user->status = FALSE;
         else

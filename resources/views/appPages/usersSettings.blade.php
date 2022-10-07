@@ -3,7 +3,9 @@
 @section('title')
     <h4>Users Settings</h4>
 @endsection
-
+@section('styles')
+<link href="{{ asset('assets/datatables/datatables.min.css') }}" rel="stylesheet">
+@endsection
 @section('content')
 
     <div class="row"><!-- main .row -->
@@ -12,7 +14,7 @@
         <div class="card">
           <div class="card-header"><h4>Users List</h4></div>
           <div class="card-body">
-            <table class="table table-sm table-striped table-responsive-sm">
+            <table class="table table-sm table-striped table-responsive-sm w-100" id="usersList">
               <thead class="thead-dark">
                 <tr>
                     <th></th>
@@ -24,105 +26,7 @@
                 </tr>
               </thead>
               <thead>
-                @foreach ($users as $user)
-                    <tr>
-                    <td>
-                        <img style="max-height: 150px; max-width: 100px; " src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
-                    </td>
-                    <td>
-                      <span>{{$user->name}}</span><br>
-                      <span><i>{{$user->username}}</i></span><br>
-                      <span>{{$user->mobile}}</span> 
-                      <span>{{$user->email}}</span> 
-                    </td>
-                    <td><span></span> 
-                        {!! Form::open(['action'=>['UsersController@updateUserDesignation', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                            {{Form::hidden('_method','PUT')}}
-                            <div class="fom-group">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-preappend">
-                                        <span class="input-group-text text-light bg-info px-1">{{$user->designation? $user->designation->title : "Not Designated"}}</span>
-                                    </div>
-                                    <select id='desig-{{$user->uuid}}' name='desig-{{$user->uuid}}' class="form-control" style="max-width:45%;" required>
-                                        
-                                            <option value=''>Select Designation</option>
-                                          @foreach ($designations as $item)
-                                            @if ($item->id == $user->designations_id)
-                                              <option value='{{$item->id}}' selected>{{$item->title}}</option>
-                                            @else
-                                              <option value='{{$item->id}}' >{{$item->title}}</option>
-                                            @endif
-                                          @endforeach                                           
-                                        
-                                    </select>
-                                    <div class="input-group-append px-1">
-                                        
-                                        {{Form::submit('Update',['class'=>'btn btn-success rounded btn-sm input-group-text'])}}
-                                    </div>
-                                </div>
-                            </div>
-                        {!! Form::close() !!}
-                    </td>
-                    <td> 
-                        {!! Form::open(['action'=>['UsersController@updateUserRole', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                            {{Form::hidden('_method','PUT')}}
-                            <div class="fom-group">
-                                <div class="input-group mb-3">
-                                  <div class="input-group-preappend">
-                                      <span class="input-group-text text-light bg-info px-1">{{$user->userRole? $user->userRole->name : "Not Assigned"}}</span>
-                                  </div>
-                                    <select id='role-{{$user->uuid}}' name='role-{{$user->uuid}}' class="form-control" style="max-width:45%;" required>
-                                        
-                                            <option value=''>Select Role</option>
-                                          @foreach ($roles as $item)
-                                            @if ($item->id == $user->user_roles_id)
-                                              <option value='{{$item->id}}' selected>{{$item->name}}</option>
-                                            @else
-                                              <option value='{{$item->id}}' >{{$item->name}}</option>
-                                            @endif
-                                          @endforeach                                           
-                                        
-                                    </select>
-                                    <div class="input-group-append px-1">
-                                        
-                                        {{Form::submit('Update',['class'=>'btn btn-success rounded btn-sm input-group-text'])}}
-                                    </div>
-                                </div>
-                            </div>
-                        {!! Form::close() !!}
-                    </td>
-                    <td>
-                        @if ($user->status)
-                            <button type="button" id="{{$user->uuid}}-stat" class="btn btn-success rounded btn-sm" onclick="updateStatus('{{$user->uuid}}')">
-                                ACTIVE
-                            </button>
-                        @else 
-                            <button type="button" id="{{$user->uuid}}-stat" class="btn btn-danger rounded btn-sm" onclick="updateStatus('{{$user->uuid}}')">
-                                INACTIVE
-                            </button>
-                        @endif
-                    </td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser('{{$user->uuid}}')">
-                              S
-                            </button>
-                            {!! Form::open(['action'=>['UsersController@manageSkills', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                                {{Form::hidden('_method','PUT')}}
-                                {{Form::submit('Sett',['class'=>'btn btn-info rounded btn-sm'])}}
-                            {!! Form::close() !!}
 
-                            <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser('{{$user->uuid}}')">
-                              Edit
-                            </button>
-                            {!! Form::open(['action'=>['UsersController@destroy', $user->uuid], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                                {{Form::hidden('_method','DELETE')}}
-                                {{Form::submit('Delete',['class'=>'btn btn-danger rounded btn-sm'])}}
-                            {!! Form::close() !!}
-                        </div>
-                    </td>
-                    </tr>
-                @endforeach
               </thead>
             </table>
           </div>
@@ -130,10 +34,10 @@
       </div><!-- services list End -->
     </div><!-- main .row END -->
 
-    
+
 
     <!-- Modal for edit -->
-    
+
     <!-- Modal -->
     <div class="modal fade" id="edit-setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -192,12 +96,130 @@
       </div>
     </div>
     <!-- Modal for edit Exit -->
-    
+
+    <!-- Role -->
+    <div class="modal fade" id="edit-role" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Current Assigned Role : <span id="current-role" class="text-primary"></span> </h3>
+                </div>
+                <div class="modal-body">
+                    <input id="usr" type="hidden" />
+                    <select id='new-role' name='new-role' class="form-control" style="max-width:45%;" required>
+                        <option value=''>Select Role</option>
+                    @foreach ($roles as $item)
+                        <option value='{{$item->id}}' >{{$item->name}}</option>
+                    @endforeach
+
+                    </select>
+                    <button class="btn btn-success" id="update-role">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .Role -->
+    <!-- Designation -->
+    <div class="modal fade" id="edit-desig" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Current Designation : <span id="current-desig" class="text-primary"></span> </h3>
+                </div>
+                <div class="modal-body">
+                    <input id="desg-usr" type="hidden" />
+                    <select id='new-desig' name='new-desig' class="form-control" style="max-width:45%;" required>
+                        <option value=''>Select Designation</option>
+                        @foreach ($designations as $item)
+                            <option value='{{$item->id}}' >{{$item->title}}</option>
+                        @endforeach
+
+                    </select>
+                    <button class="btn btn-success" id="update-desig">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .Designation -->
+
 @endsection
 
 @section('script')
+<script src="{{ asset('assets/datatables/datatables.min.js') }}" ></script>
 <script type="text/javascript">
+$(document).ready(function() {
 
+    $('#usersList').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('users.index') }}",
+        columns: [
+            { data: "id",
+            render: function ( data, type, row, meta ) {
+                    return '<img style="max-height: 150px; max-width: 100px; " src="/storage/siteImages/UserImages/'+row.user_image+'" alt="">';
+                },
+            },
+            { data: "name",
+            render: function ( data, type, row, meta ) {
+
+                    return  '<span>'+data+'</span><br><span><i>'+row.username+'</i></span><br>'+(row.mobile? '<span>'+row.mobile+'</span><br>' : "")+'<span>'+row.email+'</span>';
+                },
+            },
+            { data: "designation",
+            render: function ( data, type, row, meta ) {
+                var ul = '<ul class="list-inline">';
+                    ul+='<li class="list-inline-item"><span class="text-primary px-1"><i class="fas fa-id-badge"></i> '+(data? data.title : "Not Assigned")+'</span></li>';
+                    ul+='<li class="list-inline-item"><span class="text-primary px-1 border rounded border-info" title="Change Designation" onclick="changeDesignation(\''+row.uuid+'\',\''+(data? data.title : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
+                    return ul+'</ul>';
+                    //return '<span class="text-info  px-1"><i class="fas fa-id-badge"></i> '+(data? data.title : "Not Assigned")+'</span>';
+                }, },
+            { data: "user_role",
+            render: function ( data, type, row, meta ) {
+                var ul = '<ul class="list-inline">';
+                    ul+='<li class="list-inline-item"><span class="text-primary px-1"><i class="fas fa-user-secret"></i> '+(data? data.name : "Not Assigned")+'</span></li>';
+                    ul+='<li class="list-inline-item"><span class="text-primary px-1 border rounded border-info" title="Change Role" onclick="changeRole(\''+row.uuid+'\',\''+(data? data.name : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
+                    return ul+'</ul>';
+                },
+            },
+            {data: "status",
+            render: function ( data, type, row, meta ) {
+                if(data)
+                    return '<span class="btn btn-success rounded btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">ACTIVE</span>';
+                else
+                    return '<span class="btn btn-danger rounded btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">INACTIVE</span>';
+                },
+            },
+            {data: "status",
+            render: function ( data, type, row, meta ) {
+                var lnk='';
+                var ul = '<ul class="list-inline">';
+                    ul+='<li class="list-inline-item"><button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser(\''+row.uuid+'\')" title="Edit"><i class="fas fa-edit"></i></button></li>'
+
+                    lnk= '{{route("manageSkills",":user")}}';
+
+                    ul+='<li class="list-inline-item">'+buildFormWithUser(lnk.replace(':user',row.uuid), "PUT", 'Settings', 'btn-info')+'</li>';
+                    lnk= '{{route("users.destroy",":user")}}';
+                    ul+='<li class="list-inline-item" title="Delete User">'+buildFormWithUser(lnk.replace(':user',row.uuid), "DELETE", '<i class="fas fa-user-times"></i>', 'btn-danger')+'</li>';
+
+                    return ul+='</ul>';
+                },
+            },
+        ],
+    });
+});
+
+function buildFormWithUser(url, method, action, style){
+    var form='<form method="POST" action="'+url+'" accept-charset="UTF-8">'
+                    +'<input name="_token" type="hidden" value="'+$('meta[name="csrf-token"]').attr('content')+'">'
+                    +'<input name="_method" type="hidden" value="'+method+'">'
+                    +'<button class="btn '+style+' rounded btn-sm" type="submit" >'+action+'</button>'
+                +'</form>';
+
+                return form;
+}
+
+</script>
+<script type="text/javascript">
   $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -233,19 +255,71 @@
          //data:{id:id},
          success:function(data){
             //alert(data.setting.sName);
-            if (data.user.status) {
-                $("#"+data.user.uuid+"-stat").addClass("btn-success");
-                $("#"+data.user.uuid+"-stat").text("ACTIVE");
-                $("#"+data.user.uuid+"-stat").removeClass("btn-danger");
+            var response = data.original;
+            if (data.statusCode==200) {
+                toastr[response.status](response.remarks)
             } else {
-                $("#"+data.user.uuid+"-stat").addClass("btn-danger");
-                $("#"+data.user.uuid+"-stat").text("INACTIVE");
-                $("#"+data.user.uuid+"-stat").removeClass("btn-success");
+                toastr[response.status](response.remarks)
             }
-           
+
          }
       });
   }
-  
+
+function changeRole(user, current){
+    $("#current-role").text(current);
+    $("#usr").val(user);
+    $("#edit-role").modal();
+}
+
+function changeDesignation(user, current){
+    $("#current-desig").text(current);
+    $("#desg-usr").val(user);
+    $("#edit-desig").modal();
+}
+
+$('#update-role').on('click', function(){
+    var lnk= '{{route("updateUserRole",":user")}}';
+    $.ajax({
+         type:'PUT',
+         url: lnk.replace(':user',$("#usr").val()),
+         data:{role:$("#new-role").val()},
+         success:function(data){
+            var response = data.original;
+            if (data.statusCode==200) {
+                toastr[response.status](response.remarks)
+            } else {
+                toastr[response.status](response.remarks)
+            }
+
+         }
+      });
+})
+
+$('#update-desig').on('click', function(){
+    var lnk= '{{route("updateUserDesignation",":user")}}';
+    $.ajax({
+         type:'PUT',
+         url: lnk.replace(':user',$("#desg-usr").val()),
+         data:{desig:$("#new-desig").val()},
+         success:function(data){
+            var response = data.original;
+
+            //showToast(success, data.statusCode);
+            if (data.statusCode==200) {
+                toastr[response.status](response.remarks)
+                //$("#"+data.user.uuid+"-stat").addClass("btn-success");
+                //$("#"+data.user.uuid+"-stat").text("ACTIVE");
+                //$("#"+data.user.uuid+"-stat").removeClass("btn-danger");
+            } else {
+                toastr[response.status](response.remarks)
+                //$("#"+data.user.uuid+"-stat").addClass("btn-danger");
+                //$("#"+data.user.uuid+"-stat").text("INACTIVE");
+                //$("#"+data.user.uuid+"-stat").removeClass("btn-success");
+            }
+
+         }
+      });
+})
 </script>
 @endsection

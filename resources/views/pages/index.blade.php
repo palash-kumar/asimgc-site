@@ -122,7 +122,7 @@
 
         <div class="row content-center mt-2 mb-2" id="team">
             <div class="col-md-4">
-                <div class="card team-card border-0 shadow">
+                <div class="card team-card border-0 shadow" data-aos="zoom-in-left">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
                             <img class="w-100 rounded-left" src="/storage/siteImages/Asim.jpg" alt="">
@@ -138,7 +138,7 @@
         </div>
         <div class="row content-center mt-2 mb-2">
             <div class="col-md-4">
-                <div class="card team-card border-0 shadow">
+                <div class="card team-card border-0 shadow" data-aos="zoom-in-right">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
                             <img class="w-100 rounded-left" src="/storage/siteImages/Subash.jpg" alt="">

@@ -35,9 +35,9 @@ Route::get('app/home', 'HomeController@index')->name('home');
 Route::resource('app/users','UsersController');
 Route::post('app/users/updateStatus/{id}','UsersController@updateStatus');
 Route::put('app/users/updateUserInfo/{id}','UsersController@updateUserInfo');
-Route::put('app/users/updateUserDesignation/{id}','UsersController@updateUserDesignation');
-Route::put('app/users/updateUserRole/{id}','UsersController@updateUserRole');
-Route::put('app/users/manageSkills/{id}','UsersController@manageSkills');
+Route::put('app/users/updateUserDesignation/{id}','UsersController@updateUserDesignation')->name('updateUserDesignation');
+Route::put('app/users/updateUserRole/{id}','UsersController@updateUserRole')->name('updateUserRole');
+Route::put('app/users/manageSkills/{id}','UsersController@manageSkills')->name('manageSkills');
 Route::post('app/users/assignService/{id}','UsersController@assignService');
 
 Route::resource('app/services','ServicesController');

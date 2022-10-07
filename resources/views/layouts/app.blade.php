@@ -28,6 +28,11 @@
     <!-- fancyBox v2.1.5 --->
     <link href="{{ asset('assets/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
+
+    <!-- toastr -->
+    <link href="{{ asset('assets/toastr/toastr.min.css') }}" rel="stylesheet">
+
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
 
@@ -51,9 +56,15 @@
     <!-- fontawesome-iconpicker v3 --->
     <script src="{{ asset('assets/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js') }}" ></script>
 
+
+    <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
+    <!-- toastr -->
+    <script src="{{ asset('assets/toastr/toastr.min.js') }}" ></script>
+
     <!-- ckeditor -->
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" ></script>
 
+    <script src="{{ asset('js/custom.js') }}" ></script>
     <style>
         .sidenav {
             width: 130px;
@@ -92,12 +103,15 @@
 <body>
     <div id="app">
         @include('inc.appNavbar')
-        <main class="py-4 container">
-            <div class="card-header mb-2" style="margin-top:70px ">
+        <main class="py-4 container-fluid">
+            <div class="card-header mb-2 rounded" style="margin-top:70px ">
                 @yield('title')
             </div>
             @include('inc.messages')
-            @yield('content')
+            <div class="container">
+                @yield('content')
+            </div>
+
         </main>
 
         <!-- <?php //@include('inc.pageFooter') ?> -->
@@ -113,7 +127,7 @@
         $('#error-alert').hide();
 
         CKEDITOR.replace( 'description-ckeditor');
-        
+
 
         $(function () {
             $('[data-toggle="popover"]').popover();

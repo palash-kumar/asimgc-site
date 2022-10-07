@@ -23,8 +23,8 @@
                 </div>
                 @endforeach
                 <!-- Grid column -->
-            </div> 
-            
+            </div>
+
         </div>
         @endif
 
@@ -47,12 +47,12 @@
                 </div>
                 @endforeach
                 <!-- Grid column -->
-            </div>                    
-            
+            </div>
+
         </div>
         @endif
 
-        
+
     </div>
 </section>
 @endsection

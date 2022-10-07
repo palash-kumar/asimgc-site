@@ -34,7 +34,7 @@
                                 <input type="hidden" id="completed" value="{{$value}}" />
                                 <h1 id="odometer" class="odometer font-weight-bold text-success px-2">0</h1>
                                 <p class="mb-0 text-secondary font-weight-bold">Completed</p>
-                                
+
                             </div>
                             @endif
 
@@ -56,9 +56,9 @@
             <div class="col-md-12 mb-2">
                 <div class="card quality-card w-100 mb-3" ><!-- style="max-width: 540px;" -->
                     <div class="row no-gutters">
-                    
+
                         <div class="col-md-3 text-center align-self-center">
-                            <!-- class="w-50 shadow border-circle" 
+                            <!-- class="w-50 shadow border-circle"
                             /*<img class="card-img" src="/storage/siteImages/Gallery/{{$project->image_path}}" alt="Quality" class="w-50 shadow border-circle" >*/-->
                             <h5 class="h-style text-center text-primary">{{$project->title}}</h5>
                             <p class="card-title text-center text-info">@if ($project->month != null)<span>{{$project->month}},</span>@endif {{$project->year}}</p>
@@ -68,14 +68,14 @@
                             <p class=" text-center badge badge-info">ONGOING</p>
                             @endif
                         </div>
-                    
+
                         <div class="col-md-8 ">
                             <div class="card-body text-body">
                                 <div class="row justify-content-center ">
                                     @if ($project->clientName != null)
                                     <div class="col-md-6 mb-1 ">
                                         <p class="card-text text-justify"><small class="text-dark">Client : {!!$project->clientName!!}</small></p>
-                                    </div>                                        
+                                    </div>
                                     @endif
 
                                     @if ($project->consultant != null)
@@ -102,7 +102,7 @@
                                         <p class="card-text text-justify">{!!$project->description!!}</p>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -122,13 +122,14 @@
         console.log("completed : "+completed);
         odometer.innerHTML = completed;
 
-        odometerOngoing.innerHTML = $("#ongoing").val();
+        if(typeof odometerOngoing!='undefined')
+            odometerOngoing.innerHTML = $("#ongoing").val();
         odometerTotal.innerHTML = {{$totalProjects}};
 
         /*var completed = $("#completed").val();
         console.log("completed : "+completed);
         odometer.innerHTML = completed;*/
     }, 1000);
-    
+
 </script>
 @endsection
