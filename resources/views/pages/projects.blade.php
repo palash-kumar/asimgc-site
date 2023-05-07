@@ -10,7 +10,7 @@
 
 @section('content')
 
-<section id="clients" style="padding-top: 120px;">
+<section id="projects" style="padding-top: 120px;">
     <div class='container'>
         <div class="row ">
             <div class="col-md-12">

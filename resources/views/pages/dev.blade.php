@@ -98,7 +98,7 @@
                         <div class="card-body text-body">
                         <h5 class="card-title text-center"><span class="h-style">{{$commitment->title}}</span></h5>
                         <p class="card-text text-justify">{{$commitment->description}}</p>
-                        <center><a href=" https://asimgc.com/quality/" class="btn btn-info w-100" role="button">More Details <i class="fas fa-angle-right"></i></a></center>
+                        <center><a href="{{ route('commitment') }}" class="btn btn-info w-100" role="button">More Details <i class="fas fa-angle-right"></i></a></center>
                         </div>
                     </div>
                     </div>
@@ -201,14 +201,26 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="clientss">
-            @foreach ($clients as $client)
+        <div class="row justify-content-center" id="clientss">
+            <div class="col-md-11">
+                <ul class="list-inline">
+                    @foreach ($clients as $client)
+                    <li class="list-inline-item mb-1">
+                        <div class="card">
+                            <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
+                        </div>
+                    </li>
+                    @endforeach
+
+                </ul>
+            </div>
+            {{-- @foreach ($clients as $client)
             <div class="col-6 col-md-3 my-1">
                 <div class="card">
                     <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
                 </div>
             </div>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
 </section>

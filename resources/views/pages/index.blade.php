@@ -98,7 +98,7 @@
                         <div class="card-body text-body">
                         <h5 class="card-title text-center"><span class="h-style">{{$commitment->title}}</span></h5>
                         <p class="card-text text-justify">{{$commitment->description}}</p>
-                        <center><a href=" https://asimgc.com/quality/" class="btn btn-info w-100" role="button">More Details <i class="fas fa-angle-right"></i></a></center>
+                        <center><a href="{{ route('commitment') }}" class="btn btn-info w-100" role="button">More Details <i class="fas fa-angle-right"></i></a></center>
                         </div>
                     </div>
                     </div>
@@ -193,7 +193,7 @@
 <!-- ./self ================================================== -->
 <!-- Clients ================================================== -->
 <section class="clients fde" id="clients" >
-    <div class="container py-3">
+    <div class="container-fluid py-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
@@ -201,14 +201,26 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="clientss">
-            @foreach ($clients as $client)
+        <div class="row justify-content-center" id="clientss">
+            <div class="col-md-11">
+                <ul class="list-inline">
+                    @foreach ($clients as $client)
+                    <li class="list-inline-item mb-1">
+                        <div class="card">
+                            <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
+                        </div>
+                    </li>
+                    @endforeach
+
+                </ul>
+            </div>
+            {{-- @foreach ($clients as $client)
             <div class="col-6 col-md-3 my-1">
                 <div class="card">
                     <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
                 </div>
             </div>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
 </section>
@@ -288,7 +300,7 @@
                     <div class="gallery" id="gallery">
                         <!-- Grid column -->
                         @foreach ($certificates as $image)
-                        <div class="mb-3 pics animation all 2">
+                        <div class="mb-2 pics animation all 2">
                             <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
                                 <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
                             </a>
@@ -312,7 +324,7 @@
                     <div class="gallery" id="gallery">
                         <!-- Grid column -->
                         @foreach ($frontGalery as $image)
-                        <div class="mb-3 pics animation all 2">
+                        <div class="mb-2 pics animation all 2">
                             <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
                                 <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
                             </a>
@@ -320,7 +332,7 @@
                         @endforeach
 
                          @foreach ($gallery as $image)
-                        <div class="mb-3 pics animation all 2">
+                        <div class="mb-2 pics animation all 2">
                             <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
                                 <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
                             </a>

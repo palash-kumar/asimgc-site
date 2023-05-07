@@ -24,6 +24,7 @@ Route::get('/commitments', 'PagesController@commitments')->name('commitment');
 Route::get('/gallery', 'PagesController@gallery')->name('gallery');
 
 Route::get('/projects', 'PagesController@projects')->name('projects');
+Route::get('/clients', 'PagesController@clients')->name('clients');
 
 Route::get('/app/dev', 'PagesController@developmentTest')->name('dev');
 

@@ -29,7 +29,7 @@ class PagesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except'=>['index', 'commitments', 'gallery', 'projects', 'commitments', 'commitments']]);
+        $this->middleware('auth', ['except'=>['index', 'commitments', 'gallery', 'projects', 'clients', 'commitments', 'commitments']]);
     }
 
 
@@ -185,6 +185,33 @@ class PagesController extends Controller
     }
 
 
+
+    public function clients(Request $request){
+
+        // Checking Session
+        Helper::checkSession($request);
+
+        $company = Session::get("company");
+        $companySettigs = Session::get("companySettigs");
+
+        $title = "Clients";
+
+        //orderBy('id', 'DESC')->get();
+        $clients = Clients::where(['com_id' => $company->companyId])->get();
+        //$clients = Clients::all();
+        /*$projectsStatus = DB::table('projects')
+                        ->select('projectStatus', DB::raw('count(*) as total'))
+                        ->groupBy('projectStatus')
+                        ->pluck('total','projectStatus')->all();*/
+
+
+        $data = array( );
+        $data['title'] = $title;
+        $data['clients'] = $clients;
+
+
+        return view('pages.clients')->with($data);
+    }
 
     public function developmentTest(Request $request){
         // Checking Session
