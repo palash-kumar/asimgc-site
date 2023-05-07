@@ -11,7 +11,7 @@
 @section('content')
 
 @include('pageComponents.carousel')
-    
+
 <!-- About================================================== -->
 <section class="about-sec parallax-section fde" id="about" >
     <div class="container py-3">
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->
 
     <div class="modal fade bd-example-modal-lg h-100 " tabindex="-1" role="dialog" aria-labelledby="companyProfile" aria-hidden="true" id="asimgcProfile">
@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-                
+
             @endif
             @endforeach
         </div>
@@ -161,11 +161,11 @@
                     </div>
                 </div>
             </div>
-                
+
             @endif
             @endforeach
         </div>
-        
+
         <div class="row content-center mt-2 mb-2" id="team">
             @foreach ($users as $user)
             @if ($user->user_roles_id == 3)
@@ -184,7 +184,7 @@
                     </div>
                 </div>
             </div>
-                
+
             @endif
             @endforeach
         </div>
@@ -239,7 +239,7 @@
                                 <input type="hidden" id="completed" value="{{$value}}" />
                                 <h1 id="odometer" class="odometer font-weight-bold text-success px-2">0</h1>
                                 <p class="mb-0 text-secondary font-weight-bold">Completed</p>
-                                
+
                             </div>
                             @endif
 
@@ -271,7 +271,7 @@
         <!-- -->
         <div class="row">
             <div class="col-md-12">
-          
+
               <div id="mdb-lightbox-ui"></div>
 
               <div class='container'>
@@ -293,11 +293,11 @@
                         </div>
                         @endforeach
                         <!-- Grid column -->
-                    </div> 
-                    
+                    </div>
+
                 </div>
                 @endif
-        
+
                 @if (count($frontGalery) > 0)
                 <div class="row justify-content-center pt-2">
                     <div class="col-md-12">
@@ -305,7 +305,7 @@
                     </div>
                 </div>
                 <div class="row image-box justify-content-center" id=”images-wrapper”>
-        
+
                     <!-- Grid row -->
                     <div class="gallery" id="gallery">
                         <!-- Grid column -->
@@ -326,15 +326,15 @@
                         @endforeach
 
                         <!-- Grid column -->
-                    </div>                    
-                    
+                    </div>
+
                 </div>
                 @endif
-        
-                
+
+
             </div>
 
-     
+
     </div>
 </section>
 
@@ -357,11 +357,12 @@
             //$('#project-stats').fadeIn(3500);
             setTimeout(function(){
                 var completed = $("#completed").val();
-                console.log("completed : "+completed);
+                //console.log("completed : "+completed);
+                //console.log("totalProjects : "+{{$totalProjects}});
                 odometer.innerHTML = completed;
-
-                odometerOngoing.innerHTML = $("#ongoing").val();
                 odometerTotal.innerHTML = {{$totalProjects}};
+                odometerOngoing.innerHTML = $("#ongoing").val();
+
 
                 /*var completed = $("#completed").val();
                 console.log("completed : "+completed);
@@ -369,8 +370,8 @@
             }, 500);
         }
     });
-    
-    
-    
+
+
+
 </script>
 @endsection

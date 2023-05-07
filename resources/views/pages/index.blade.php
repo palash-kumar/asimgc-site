@@ -121,36 +121,72 @@
         </div>
 
         <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 1)
+
             <div class="col-md-4">
-                <div class="card team-card border-0 shadow" data-aos="zoom-in-left">
+                <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="/storage/siteImages/Asim.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
-                            <h6 class="title text-center h-style">Mr. Asim Chandra Nath</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>Chairman</i></p>
-                            <p class="text-center">Email: <b>as.asim@ymail.com</b></p>
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @endif
+            @endforeach
         </div>
-        <div class="row content-center mt-2 mb-2">
+
+        <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 2)
+
             <div class="col-md-4">
-                <div class="card team-card border-0 shadow" data-aos="zoom-in-right">
+                <div class="card team-card border-0 shadow">
                     <div class="row">
                         <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="/storage/siteImages/Subash.jpg" alt="">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
                         </div>
                         <div class="col-md-8 col-8 align-self-center text-light p-1">
-                            <h6 class="title text-center h-style">Mr. Subash Chandra Nath</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>Business Development Manager</i></p>
-                            <p class="text-center">Email: <b>subash.asim@yahoo.com</b></p>
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            @endif
+            @endforeach
+        </div>
+
+        <div class="row content-center mt-2 mb-2" id="team">
+            @foreach ($users as $user)
+            @if ($user->user_roles_id == 3)
+
+            <div class="col-md-4">
+                <div class="card team-card border-0 shadow">
+                    <div class="row">
+                        <div class="col-md-4 col-4 p-0">
+                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
+                        </div>
+                        <div class="col-md-8 col-8 align-self-center text-light p-1">
+                        <h6 class="title text-center h-style">{{$user->name}}</h6>
+                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @endif
+            @endforeach
         </div>
     </div>
 </section>
@@ -192,12 +228,14 @@
             <div class="col-md-12 mb-2">
                 <div class=" w-100 mb-3 py-3" ><!-- style="max-width: 540px;" -->
                     <div class="row no-gutters justify-content-center text-dark" id="project-stats">
-                        <div class="col-md-2 mb-2 text-center">
-                            <h1 id="odometerTotal" class="odometer font-weight-bold px-2">0</h1>
-                            <p class="mb-0 text-secondary font-weight-bold">Total</p>
-                        </div>
+
 
                         @foreach ($projectsStatus as $key => $value)
+                            <div class="col-md-2 mb-2 text-center">
+                                <input type="hidden" id="total" value="{{$value}}" />
+                                <h1 id="odometerTotal" class="odometer font-weight-bold px-2">0</h1>
+                                <p class="mb-0 text-secondary font-weight-bold">Total</p>
+                            </div>
                             @if ($key == 1)
                             <div class="col-md-2 mb-2 text-center text-center">
                                 <input type="hidden" id="completed" value="{{$value}}" />
@@ -207,13 +245,13 @@
                             </div>
                             @endif
 
-                            @if ($key == 0)
+                            {{-- @if ($key == 0)
                             <div class="col-md-2 mb-2 text-center">
                                 <input type="hidden" id="ongoing" value="{{$value}}" />
                                 <h1 id="odometerOngoing" class="odometer font-weight-bold text-info px-2">0</h1>
                                 <p class="mb-0 text-secondary font-weight-bold">Ongoing</p>
                             </div>
-                            @endif
+                            @endif --}}
                         @endforeach
                     </div>
                 </div>
@@ -321,12 +359,11 @@
             //$('#project-stats').fadeIn(3500);
             setTimeout(function(){
                 var completed = $("#completed").val();
-                console.log("completed : "+completed);
+                //console.log("completed : "+completed);
+                //console.log("totalProjects : "+{{$totalProjects}});
                 odometer.innerHTML = completed;
-                console.log("totalProjects : "+{{$totalProjects}});
-                if(typeof odometerOngoing!='undefined')
-                    odometerOngoing.innerHTML = $("#ongoing").val();
                 odometerTotal.innerHTML = {{$totalProjects}};
+                odometerOngoing.innerHTML = $("#ongoing").val();
                 //odometerTotal
                 /*var completed = $("#completed").val();
                 console.log("completed : "+completed);

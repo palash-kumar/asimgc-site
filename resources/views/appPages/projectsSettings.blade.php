@@ -79,7 +79,7 @@
                         @endif
                     </div>
                   <p class="card-text">{!!$project->description!!}</p>
-                  
+
                   <div class="btn-group">
                     <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getClientDetail({{$project->id}})">
                       Edit
@@ -125,7 +125,7 @@
                         {{Form::label('year', 'Project Start Year')}}
                         <select id='year' name='year' class="form-control">
                                 <option value=''>Select Year</option>
-                            @foreach ($years as $key => $value) 
+                            @foreach ($years as $key => $value)
                                 <option value='{{$value}}'>{{$value}}</option>
                             @endforeach
                         </select>
@@ -136,7 +136,7 @@
                         {{Form::label('month', 'Project Start Month')}}
                         <select id='month' name='month' class="form-control">
                                 <option value=''>Select Month</option>
-                            @foreach ($months as $key => $value) 
+                            @foreach ($months as $key => $value)
                                 <option value='{{$value}}'>{{$value}}</option>
                             @endforeach
                         </select>
@@ -148,11 +148,11 @@
                         {{Form::label('endYear', 'Project Complete Year')}}
                         <select id='endYear' name='endYear' class="form-control">
                                 <option value=''>Select End Year</option>
-                            @foreach ($years as $key => $value) 
+                            @foreach ($years as $key => $value)
                                 <option value='{{$value}}'>{{$value}}</option>
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-6 col-6 pb-2">
@@ -160,7 +160,7 @@
                         {{Form::label('endMonth', 'Project Complete Month')}}
                         <select id='endMonth' name='endMonth' class="form-control">
                                 <option value=''>Select End Month</option>
-                            @foreach ($months as $key => $value) 
+                            @foreach ($months as $key => $value)
                                 <option value='{{$value}}'>{{$value}}</option>
                             @endforeach
                         </select>
@@ -213,12 +213,12 @@
                     {{Form::label('description', 'Work Description')}}
                     {{Form::textarea('description', '', ['id'=>'description-ckeditor','class'=>'form-control', 'placeholder'=>'Work Description'])}}
                 </div>
-                
-                
+
+
                 <div class="fom-group">
                     {{Form::file('cover_image')}}
                 </div>
-                
+
                 <div class="row justify-content-center mt-2">
                     <div class="col-md-6">{{Form::submit('Submit',['class'=>'btn btn-primary w-100'])}}</div>
                 </div>
@@ -261,7 +261,7 @@
                       {{Form::label('eyear', 'Project Start Year')}} <p class="text-primary">Current:<span class="text-bold"  id="seyear"></span></p>
                       <select id='eyear' name='eyear' class="form-control">
                             <option value=''>Select Year</option>
-                        @foreach ($years as $key => $value) 
+                        @foreach ($years as $key => $value)
                             <option value='{{$value}}'>{{$value}}</option>
                         @endforeach
                     </select>
@@ -272,7 +272,7 @@
                       {{Form::label('emonth', 'Project Start Month')}} <p class="text-primary">Current:<span class="text-bold"  id="semonth"></span></p>
                       <select id='emonth' name='emonth' class="form-control">
                             <option value=''>Select Month</option>
-                        @foreach ($months as $key => $value) 
+                        @foreach ($months as $key => $value)
                             <option value='{{$value}}'>{{$value}}</option>
                         @endforeach
                     </select>
@@ -284,7 +284,7 @@
                       {{Form::label('eendYear', 'Project Complete Year')}} <p class="text-primary">Current:<span class="text-bold"  id="seendYear"></span></p>
                       <select id='eendYear' name='endYear' class="form-control">
                             <option value=''>Select End Year</option>
-                        @foreach ($years as $key => $value) 
+                        @foreach ($years as $key => $value)
                             <option value='{{$value}}'>{{$value}}</option>
                         @endforeach
                     </select>
@@ -295,7 +295,7 @@
                       {{Form::label('eendMonth', 'Project Complete Month')}} <p class="text-primary">Current:<span class="text-bold" id="seendMonth"></span></p>
                       <select id='eendMonth' name='eendMonth' class="form-control">
                                 <option value=''>Select End Month</option>
-                            @foreach ($months as $key => $value) 
+                            @foreach ($months as $key => $value)
                                 <option value='{{$value}}'>{{$value}}</option>
                             @endforeach
                         </select>
@@ -332,7 +332,7 @@
             </div>
         </div>
 
-                
+
                 <div class="fom-group">
                     {{Form::label('edescription', 'Description')}}
                     {{Form::textarea('edescription', '', ['id'=>'edescription-ckeditor','class'=>'form-control', 'placeholder'=>'Service Description'])}}
@@ -350,7 +350,7 @@
       </div>
     </div>
     <!-- Modal for edit Exit -->
-    
+
 @endsection
 
 @section('script')
@@ -363,7 +363,7 @@
   });
 
   function getClientDetail(id){
-    
+
     var req = "{{ route('projects.index') }}",
     //console.log('url : '+req);
     get = req+'/'+id+'/edit';
@@ -412,7 +412,7 @@
                 $("#"+data.projects.id+"-stat").text("HIDDEN");
                 $("#"+data.projects.id+"-stat").removeClass("btn-success");
             }
-           
+
          },
          error:function(jqXHR, textStatus, errorThrown){
             console.log(textStatus + ": " + jqXHR.status + " " + errorThrown);
@@ -424,7 +424,7 @@
         }
       });
   }
-  
+
 
 
   function updateProjectStatus(id){
@@ -447,7 +447,7 @@
                 $("#"+data.projects.id+"-pstat").text("ONGOING");
                 $("#"+data.projects.id+"-pstat").removeClass("btn-success");
             }
-           
+
          },
          error:function(jqXHR, textStatus, errorThrown){
             console.log(textStatus + ": " + jqXHR.status + " " + errorThrown);

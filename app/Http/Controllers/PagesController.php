@@ -171,7 +171,7 @@ class PagesController extends Controller
 
         $totalProjects=0;
         foreach($projectsStatus as $key => $value){
-            error_log('->Projects is : '.$key.' -value '.$value);
+            error_log('->pages.index Projects is : '.$key.' -value '.$value);
             $totalProjects+=$value;
         }
         $data = array( );
