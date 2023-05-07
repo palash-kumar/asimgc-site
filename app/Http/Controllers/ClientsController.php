@@ -53,7 +53,7 @@ class ClientsController extends Controller
             'title'=>'required',
             'cover_image'=>'image|required|max:1999'
         ]);
-        
+
         error_log('->cover_image is : '.$request->hasFile('cover_image'));
         //// Handle File Upload
         if($request->hasFile('cover_image')){
@@ -78,14 +78,14 @@ class ClientsController extends Controller
         $company = SiteSettings::find(1)->where('sValue', $host)->first();
 
         $clients = new Clients;//::find($id);
-        
+
         $clients->title = $request->input('title');
         $clients->description = $request->input('description');
         $clients->image_path = $filenameToStore;
         $clients->com_id = $company->companyId;
         $clients->save();
 
-        return redirect('/clients')->with('success', 'Clients Info saved Successfully');
+        return redirect('app/clients')->with('success', 'Clients Info saved Successfully');
     }
 
     /**
@@ -126,7 +126,7 @@ class ClientsController extends Controller
             'edescription'=>'required',
             'ecover_image'=>'image|nullable|max:1999'
         ]);
-        
+
         $clients = Clients::find($id);
         error_log('->cover_image is : '.$request->hasFile('ecover_image'));
         //// Handle File Upload
@@ -151,8 +151,8 @@ class ClientsController extends Controller
             }
         }
 
-        
-        
+
+
         $clients->title = $request->input('etitle');
         $clients->description = $request->input('edescription');
         if($request->hasFile('ecover_image')){
