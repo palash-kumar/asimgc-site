@@ -12,7 +12,7 @@
 
 <section id="clients" style="padding-top: 120px;">
     <div class='container'>
-        <div class="row ">
+        <div class="row mb-2">
             <div class="col-md-12">
                 <div class="well text-center shadow" style="background: transparent;">
                     <h2 ><font class="h-style">{{$title}}</font></h2>

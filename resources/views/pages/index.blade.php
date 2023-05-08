@@ -331,13 +331,13 @@
                         </div>
                         @endforeach
 
-                         @foreach ($gallery as $image)
+                         {{-- @foreach ($gallery as $image)
                         <div class="mb-2 pics animation all 2">
                             <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
                                 <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
                             </a>
                         </div>
-                        @endforeach
+                        @endforeach --}}
 
                         <!-- Grid column -->
                     </div>
