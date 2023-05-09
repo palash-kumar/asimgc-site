@@ -162,7 +162,7 @@ class PagesController extends Controller
         $title = "Our Projects!";
 
         //orderBy('id', 'DESC')->get();
-        $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
+        //$projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
 
         $projectsStatus = DB::table('projects')
                         ->select('projectStatus', DB::raw('count(*) as total'))
@@ -176,7 +176,7 @@ class PagesController extends Controller
         }
         $data = array( );
         $data['title'] = $title;
-        $data['projects'] = $projects;
+        //$data['projects'] = $projects;
         $data['projectsStatus'] = $projectsStatus;
         $data['totalProjects'] = $totalProjects;
 

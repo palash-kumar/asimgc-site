@@ -9,45 +9,28 @@
     <div class="row"><!-- main .row -->
 
       <div class="col-md-8"><!-- services list start -->
-        <!--
-        <div class="card">
-          <div class="card-header"><h4>Gallery Images</h4></div>
-          <div class="card-body">
-            @if (count($clients) > 0)
-            <table class="table table-striped">
-              <tr  class="thead-dark">
-                <th>Image</th>
-                <th>Description</th>
-                <th>Status</th>
-              </tr>
-              @foreach ($clients as $client)
-                  <tr>
-                    <td> <img class="w-100" src="/storage/siteImages/Clients/{{$client->image_path}}"></td>
-                    <td>
-                      {{$client->title}}
-                      {!!$client->description!!}
-                    </td>
-                    <td>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getService({{$client->id}})">
-                          Edit
-                        </button>
-                        {!! Form::open(['action'=>['ClientsController@destroy', $client->id], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                            {{Form::hidden('_method','DELETE')}}
-                            {{Form::submit('Delete',['class'=>'btn btn-danger rounded btn-sm'])}}
-                        {!! Form::close() !!}
-                      </div>
-                    </td>
-                  </tr>
-              @endforeach
-            </table>
-            @else
-                <p>No Images Found</p>
-            @endif
-          </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-2">
+                <div class="card quality-card w-100 mb-3" ><!-- style="max-width: 540px;" -->
+                    <div class="card-body text-body">
+                        <table class="table table-sm table-striped table-responsive-sm w-100 text-light" id="clientList" style="font-size: 0.8rem;">
+                            <thead class="bg-dark">
+                              <tr>
+                                  <th>Logo</th>
+                                  <th>Name</th>
+                                  <th>Description</th>
+                                  <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-dark">
+
+                            </thead>
+                          </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        -->
-        @if (count($clients) > 0)
+        {{-- @if (count($clients) > 0)
           <div class="row">
             @foreach ($clients as $client)
             <div class="col-md-4 col-6 ">
@@ -66,7 +49,7 @@
                         @endif
                     </span>
                   <p class="card-text">{!!$client->description!!}</p>
-                  
+
                   <div class="btn-group">
                     <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getClientDetail({{$client->id}})">
                       Edit
@@ -83,13 +66,13 @@
           </div>
         @else
             <p>No Images Found</p>
-        @endif
+        @endif --}}
       </div><!-- services list End -->
 
       <div class="col-md-4"><!-- create service form -->
         <div class="card">
           <div class="card-header">
-            <h3>Add Service</h3>
+            <h3>Add Client</h3>
           </div>
           <div class="card-body">
             {!! Form::open(['action'=>'ClientsController@store', 'method'=>'POST', 'enctype'=>'multipart/form-data']) !!}
@@ -102,7 +85,7 @@
                 </div>
               </div>
 
-                
+
                 <div class="fom-group">
                     {{Form::label('description', 'Description')}}
                     {{Form::textarea('description', '', ['id'=>'description-ckeditor','class'=>'form-control', 'placeholder'=>'Clients Description'])}}
@@ -110,7 +93,7 @@
                 <div class="fom-group">
                     {{Form::file('cover_image')}}
                 </div>
-                
+
                 <div class="row justify-content-center mt-2">
                   <div class="col-md-6">{{Form::submit('Submit',['class'=>'btn btn-primary w-100'])}}</div>
                 </div>
@@ -128,9 +111,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             {!! Form::open(['action'=>'ClientsController@index', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'edit-gallery-form']) !!}
@@ -143,7 +124,7 @@
                 </div>
               </div>
 
-                
+
                 <div class="fom-group">
                     {{Form::label('edescription', 'Description')}}
                     {{Form::textarea('edescription', '', ['id'=>'edescription-ckeditor','class'=>'form-control', 'placeholder'=>'Service Description'])}}
@@ -161,7 +142,7 @@
       </div>
     </div>
     <!-- Modal for edit Exit -->
-    
+
 @endsection
 
 @section('script')
@@ -172,9 +153,50 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
   });
+  $(document).ready(function() {
+    //console.log("datatables called")
+    $('#clientList').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [[1, 'desc']],
+
+        ajax: { url:"{{ route('clientList') }}",
+                type:'GET',
+        },
+        columns: [
+            { data: "image_path",
+            render: function ( data, type, row, meta ){
+                    //var element= '<h6 class="h-style text-center text-primary">'+data+'</h6>';
+
+                    return data;
+                }
+            },
+            { data: "title",
+            render: function ( data, type, row, meta ){
+                    return '<h6 class="h-style text-center text-primary">'+data+'</h6>';//((data)? '<span id="'+row.proj_id+'-pstat" class="badge bg-success btn-sm mr-2" onclick="updateProjectStatus(\''+row.proj_id+'\')"> COMPLETE</span>' : '<span id="'+row.proj_id+'-pstat" class="badge bg-info btn-sm mr-2" onclick="updateProjectStatus(\''+row.proj_id+'\')">ONGOING</span>') + view;
+                }
+            },
+            { data: "description",
+            render: function ( data, type, row, meta ){
+
+                    return data.replaceAll('&amp;amp;','&').replaceAll('&gt;','>').replaceAll('&lt;','<');
+                }
+            },
+            { data: "client_id",
+            render: function ( data, type, row, meta ){
+                    var opt = (row.status)? '<span id="'+row.proj_id+'-stat" class="badge bg-success btn-sm" onclick="updateStatus(\''+row.client_id+'\')">SHOW </span>' : '<span id="'+row.proj_id+'-stat" class="badge bg-danger btn-sm" onclick="updateStatus(\''+row.proj_id+'\')">HIDDEN </span>'
+                    opt += '<button type="button" class="btn btn-outline-primary rounded btn-sm mr-2" onclick="getClientDetail(\''+data+'\')"><i class="fas fa-edit"></i></button>'
+
+                    return '<button class="btn btn-outline-info rounded py-1 px-2" onClick="getProjectDetails(\''+data+'\')"><i class="fas fa-info"></i></button>'+opt;
+                }
+            },
+        ],
+    });
+});
 
   function getClientDetail(id){
-    
+
     var req = "{{ route('clients.index') }}",
     //console.log('url : '+req);
     get = req+'/'+id+'/edit';
@@ -187,7 +209,7 @@
            $('#edescription-ckeditor').val(data.clients.description);
            console.log("Description : "+data.clients.description);
            $("#edit-gallery-form").attr('action', req+'/'+id);
-           $("#edit-gallery").modal();
+           $("#edit-gallery").modal('show');
          }
       });
   }
@@ -204,15 +226,15 @@
              console.log("Status code : "+status);
             //alert(data.setting.sName);
             if (data.clients.status) {
-                $("#"+data.clients.id+"-stat").addClass("btn-success");
-                $("#"+data.clients.id+"-stat").text("ACTIVE");
-                $("#"+data.clients.id+"-stat").removeClass("btn-danger");
+                $("#"+data.clients.client_id+"-stat").addClass("btn-success");
+                $("#"+data.clients.client_id+"-stat").text("ACTIVE");
+                $("#"+data.clients.client_id+"-stat").removeClass("btn-danger");
             } else {
-                $("#"+data.clients.id+"-stat").addClass("btn-danger");
-                $("#"+data.clients.id+"-stat").text("INACTIVE");
-                $("#"+data.clients.id+"-stat").removeClass("btn-success");
+                $("#"+data.clients.client_id+"-stat").addClass("btn-danger");
+                $("#"+data.clients.client_id+"-stat").text("INACTIVE");
+                $("#"+data.clients.client_id+"-stat").removeClass("btn-success");
             }
-           
+
          },
          error:function(jqXHR, textStatus, errorThrown){
             console.log(textStatus + ": " + jqXHR.status + " " + errorThrown);
@@ -224,6 +246,6 @@
         }
       });
   }
-  
+
 </script>
 @endsection

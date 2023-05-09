@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\AppModels\SiteSettings;
 use App\Models\AppModels\Clients;
+use Yajra\DataTables\DataTables;
+use Session;
 
 class ClientsController extends Controller
 {
@@ -83,6 +85,7 @@ class ClientsController extends Controller
         $clients->description = $request->input('description');
         $clients->image_path = $filenameToStore;
         $clients->com_id = $company->companyId;
+        $clients->client_id = 'client_'.time();
         $clients->save();
 
         return redirect('app/clients')->with('success', 'Clients Info saved Successfully');
@@ -107,7 +110,7 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        $clients = Clients::find($id);
+        $clients = Clients::where(['client_id' => $id])->first();
 
         return response()->json(['clients'=>$clients]);
     }
@@ -127,7 +130,7 @@ class ClientsController extends Controller
             'ecover_image'=>'image|nullable|max:1999'
         ]);
 
-        $clients = Clients::find($id);
+        $clients = Clients::where(['client_id' => $id])->first();
         error_log('->cover_image is : '.$request->hasFile('ecover_image'));
         //// Handle File Upload
         if($request->hasFile('ecover_image')){
@@ -171,7 +174,7 @@ class ClientsController extends Controller
      */
     public function destroy($id)
     {
-        $clients = Clients::find($id);
+        $clients = Clients::where(['client_id' => $id])->first();
         // Check for the correct user
         /*if(auth()->user()->id !== $post->user_id){
             return redirect('/posts')->with('error', 'Un-authorized Page!');
@@ -189,7 +192,7 @@ class ClientsController extends Controller
 
     public function updateStatus(Request $request, $id){
 
-        $clients = Clients::find($id);
+        $clients = Clients::where(['client_id' => $id])->first();
         if($clients->status)
             $clients->status = FALSE;
         else
@@ -198,5 +201,17 @@ class ClientsController extends Controller
         $clients->save();
 
         return response()->json(['clients'=>$clients]);
+    }
+
+
+    public function clientList(){
+        error_log("clientList called..");
+        $company = Session::get("company");
+        //$requests=Requests::where('area_id','=', $companySettigs->com_id)->orderByDesc ('id')->with(['com', 'reqInfos', 'reqInfos.app', 'reqInfos.pack'])->get();
+        $clients = Clients::select('client_id', 'title', 'description', 'image_path', 'status')->where(['com_id' => $company->companyId])->orderBy('status', 'ASC')->get();
+        error_log("clientList called..".$company->companyId);
+        //return DataTables::of($clients)->filter_column('client_id', 'title', 'description', 'image_path', 'status')->toJson();
+        //return json_decode(json_encode(Clients::select('client_id', 'title', 'description', 'image_path', 'status')->where(['com_id' => $company->companyId])->get()));//->make();//of($clients)->filter_column('client_id', 'title', 'description', 'image_path', 'status')->toJson();
+        return DataTables::of($clients)->toJson();//Clients::select('client_id', 'title', 'description', 'image_path', 'status')->where(['com_id' => $company->companyId])->get()->make('true');
     }
 }

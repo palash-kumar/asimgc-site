@@ -178,7 +178,9 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
 
+        //Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        //Yajra\Datatables\DatatablesServiceProvider::class,
 
     ],
 

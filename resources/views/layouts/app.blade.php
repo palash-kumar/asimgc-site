@@ -13,14 +13,16 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+
+    <!-- fullview v2.1.5 --->
+    <link href="{{ asset('assets/fullview/fullview.css') }}" rel="stylesheet">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet"> --}}
 
     <!-- fontawesome 5.13.1 --->
     <link href="{{ asset('assets/fontawesome/css/all.min.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('assets/fontawesome-iconpicker/css/fontawesome-iconpicker.min.css') }}" rel="stylesheet">
 
     <!-- aos-animation 5.13.1 --->
     <link href="{{ asset('assets/aos-animation/aos.css') }}" rel="stylesheet">
@@ -28,16 +30,12 @@
     <!-- fancyBox v2.1.5 --->
     <link href="{{ asset('assets/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('assets/sweetalert2/sweetalert2.min.css') }}">
+    <link href="{{ asset('assets/datatables/datatables.min.css') }}" rel="stylesheet">
 
-    <!-- toastr -->
-    <link href="{{ asset('assets/toastr/toastr.min.css') }}" rel="stylesheet">
+    @yield('styles')
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
-
-    <!-- popper -->
-    <script type="module" src="{{ asset('assets/popper.js/dist/popper.min.js') }}" ></script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}" ></script>
@@ -53,16 +51,13 @@
     <script src="{{ asset('assets/fancybox/jquery.fancybox.js') }}" ></script>
     <script src="{{ asset('assets/fancybox/jquery.fancybox.pack.js') }}" ></script>
 
-    <!-- fontawesome-iconpicker v3 --->
-    <script src="{{ asset('assets/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js') }}" ></script>
-
-
-    <script src="{{ asset('assets/sweetalert2/sweetalert2.min.js')}}"></script>
-    <!-- toastr -->
-    <script src="{{ asset('assets/toastr/toastr.min.js') }}" ></script>
-
     <!-- ckeditor -->
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" ></script>
+
+    <!-- ckeditor -->
+    <script src="{{ asset('assets/fullview/fullview.js') }}" ></script>
+
+    @yield('script-head')
 
     <script src="{{ asset('js/custom.js') }}" ></script>
     <style>
@@ -119,14 +114,15 @@
 
 
     <script src="{{ asset('assets/aos-animation/aos.js') }}" ></script>
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}" ></script>
     <script type="text/javascript">
-        $('.carousel').carousel({
-            interval: 4000
-        })
+        // $('.carousel').carousel({
+        //     interval: 4000
+        // })
 
         $('#error-alert').hide();
 
-        CKEDITOR.replace( 'description-ckeditor');
+
 
 
         $(function () {
@@ -140,7 +136,7 @@
             $(".fde").css('display', 'none');
             $(".fde").fadeIn(2000);
         });
-
+        CKEDITOR.replace( 'description-ckeditor');
     </script>
     @yield('script')
 </body>

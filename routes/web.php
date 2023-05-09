@@ -25,6 +25,9 @@ Route::get('/gallery', 'PagesController@gallery')->name('gallery');
 
 Route::get('/projects', 'PagesController@projects')->name('projects');
 Route::get('/clients', 'PagesController@clients')->name('clients');
+Route::get('/projectList', 'PagesApiController@projectList')->name('projectList');
+Route::get('/clientsls', 'PagesApiController@clientList')->name('clientsls');
+Route::post('/projectDetails', 'PagesApiController@getProjectDetails')->name('projectDetails');
 
 Route::get('/app/dev', 'PagesController@developmentTest')->name('dev');
 
@@ -55,6 +58,7 @@ Route::put('app/gallery/updateCategory/{id}','GallerySettingsController@updateIm
 
 Route::resource('app/clients','ClientsController');
 Route::post('app/clients/updateStatus/{id}','ClientsController@updateStatus');
+Route::get('/clientList', 'ClientsController@clientList')->name('clientList');
 
 Route::resource('app/projects','ProjectsController');
 Route::post('app/projects/updateStatus/{id}','ProjectsController@updateStatus');

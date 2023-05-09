@@ -22,14 +22,14 @@
 
         <div class="row justify-content-center">
             <div class="col-md-12 mb-2">
-                <ul class="list-inline">
-                    @foreach ($clients as $client)
+                <ul class="list-inline" id="clientsls">
+                    {{-- @foreach ($clients as $client)
                     <li class="list-inline-item mb-1">
                         <div class="card">
                             <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
                         </div>
                     </li>
-                    @endforeach
+                    @endforeach --}}
 
                 </ul>
             </div>
@@ -41,19 +41,29 @@
 
 @section('script')
 <script>
-    setTimeout(function(){
-        // var completed = $("#completed").val();
-        // console.log("completed : "+completed);
-        // odometer.innerHTML = completed;
+    $(document).ready(function() {
+        var req = "{{ route('clientsls') }}"
+    //console.log('url : '+req);
+    //get = req+'/'+id+'/edit';
+    $.ajax({
+         type:'GET',
+         url:req,
+         //data:{id:id},
+         success:function(data){
+            var element = '';
+            $.each( data, function( key, value ) {
+                element = '<li class="list-inline-item mb-1">'
+                            +'<div class="card">'
+                            +'<img class="card-img-top" src="/storage/siteImages/Clients/'+value.image_path+'" height="100px">'
+                            +'</div>'
+                        +'</li>';
 
-        // if(typeof odometerOngoing!='undefined')
-        //     odometerOngoing.innerHTML = $("#ongoing").val();
-        // odometerTotal.innerHTML = '';
+                        $('#clientsls').append(element);
+            });
 
-        /*var completed = $("#completed").val();
-        console.log("completed : "+completed);
-        odometer.innerHTML = completed;*/
-    }, 1000);
+         }
+      });
+    })
 
 </script>
 @endsection

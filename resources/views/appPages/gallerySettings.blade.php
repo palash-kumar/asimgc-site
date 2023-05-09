@@ -63,14 +63,11 @@
                         {{Form::hidden('_method','PUT')}}
                         <div class="input-group mb-3">
                           {!! Form::select('image_cat-'.$image->id, $imageCategory ?? 'Select Option',$image->imageCategory->id, ['class' => 'form-control']) !!}
-                          <div class="input-group-append">
-                            
-                            {{Form::submit('Update',['class'=>'btn btn-success rounded btn-sm input-group-text'])}}
-                          </div>
+                          {{Form::submit('Update',['class'=>'btn btn-success rounded btn-sm input-group-text'])}}
                         </div>
                     {!! Form::close() !!}
                   <p class="card-text">{!!$image->description!!}</p>
-                  
+
                   <div class="btn-group">
                     <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getGalleryImage({{$image->id}})">
                       Edit
@@ -123,7 +120,7 @@
               <div class="fom-group">
                   {{Form::file('cover_image')}}
               </div>
-              
+
               <div class="row justify-content-center mt-2">
                 <div class="col-md-6">{{Form::submit('Submit',['class'=>'btn btn-primary w-100'])}}</div>
               </div>
@@ -141,9 +138,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
           </div>
           <div class="modal-body">
             {!! Form::open(['action'=>'GallerySettingsController@index', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'edit-gallery-form']) !!}
@@ -156,7 +152,7 @@
                 </div>
               </div>
 
-                
+
                 <div class="fom-group">
                     {{Form::label('edescription', 'Description')}}
                     {{Form::textarea('edescription', '', ['class'=>'form-control', 'placeholder'=>'Service Description'])}}
@@ -178,7 +174,7 @@
       </div>
     </div>
     <!-- Modal for edit Exit -->
-    
+
 @endsection
 
 @section('script')
@@ -191,7 +187,7 @@
   });
 
   function getGalleryImage(id){
-    
+
     var req = "{{ route('gallery.index') }}",
     //console.log('url : '+req);
     get = req+'/'+id+'/edit';
@@ -204,10 +200,10 @@
            $('#edescription').val(data.gallery.description);
            $('#edetail').val(data.gallery.detail);
            $("#edit-gallery-form").attr('action', req+'/'+id);
-           $("#edit-gallery").modal();
+           $("#edit-gallery").modal('show');
          }
       });
   }
-  
+
 </script>
 @endsection

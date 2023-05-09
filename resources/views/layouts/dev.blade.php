@@ -16,7 +16,7 @@
 
     <!-- fullview v2.1.5 --->
     <link href="{{ asset('assets/fullview/fullview.css') }}" rel="stylesheet">
-    
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
@@ -38,7 +38,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}" ></script>
     <script src="{{ asset('js/jquery.easing.min.js') }}" ></script>
-    
+
     <!-- Apps -->
     <script src="{{ asset('js/app.js') }}" ></script>
 
@@ -60,19 +60,20 @@
 <body>
     <div id="app">
         @include('inc.pageNavbar')
-        
+
         <main class="" id="fullview">
             @yield('title')
             @yield('content')
             @include('inc.pageFooter')
         </main>
 
-        
+
     </div>
 
 
     <!-- Scripts -->
     <script src="{{ asset('assets/aos-animation/aos.js') }}" ></script>
+    <script src="{{ asset('assets/datatables/datatables.min.js') }}" ></script>
     <script type="text/javascript">
         $("#about-m").click(function() {
             console.log("about is clicked");
@@ -83,9 +84,9 @@
         });
         AOS.init();
 
-        $('.carousel').carousel({
-            interval: 4000
-        })
+        // $('.carousel').carousel({
+        //     interval: 4000
+        // })
 
         $(document).ready(function() {
             $(".fancybox").fancybox();

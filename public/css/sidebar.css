@@ -251,9 +251,9 @@ a:hover {
 }
 
 .btn {
-    border-radius: 0px;
+    /* border-radius: 0px; */
     overflow: hidden;
-    border: none;
+    /* border: none; */
 }
 
 .btn-success:hover,

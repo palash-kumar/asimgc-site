@@ -4,7 +4,7 @@
     <h4>Users Settings</h4>
 @endsection
 @section('styles')
-<link href="{{ asset('assets/datatables/datatables.min.css') }}" rel="stylesheet">
+
 @endsection
 @section('content')
 
@@ -145,12 +145,13 @@
 @endsection
 
 @section('script')
-<script src="{{ asset('assets/datatables/datatables.min.js') }}" ></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 
     $('#usersList').DataTable({
         processing: true,
+        responsive: true,
         serverSide: true,
         ajax: "{{ route('users.index') }}",
         columns: [
@@ -184,22 +185,22 @@ $(document).ready(function() {
             {data: "status",
             render: function ( data, type, row, meta ) {
                 if(data)
-                    return '<span class="btn btn-success rounded btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">ACTIVE</span>';
+                    return '<span class="btn btn-outline-success btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">ACTIVE</span>';
                 else
-                    return '<span class="btn btn-danger rounded btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">INACTIVE</span>';
+                    return '<span class="btn btn-outline-danger btn-sm" id="'+row.uuid+'-stat" name="'+row.uuid+'-stat" onclick="updateStatus(\''+row.uuid+'\')">INACTIVE</span>';
                 },
             },
             {data: "status",
             render: function ( data, type, row, meta ) {
                 var lnk='';
                 var ul = '<ul class="list-inline">';
-                    ul+='<li class="list-inline-item"><button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getUser(\''+row.uuid+'\')" title="Edit"><i class="fas fa-edit"></i></button></li>'
+                    ul+='<li class="list-inline-item"><button type="button" class="btn btn-outline-primary rounded btn-sm mr-2" onclick="getUser(\''+row.uuid+'\')" title="Edit"><i class="fas fa-edit"></i></button></li>'
 
                     lnk= '{{route("manageSkills",":user")}}';
 
-                    ul+='<li class="list-inline-item">'+buildFormWithUser(lnk.replace(':user',row.uuid), "PUT", 'Settings', 'btn-info')+'</li>';
+                    ul+='<li class="list-inline-item">'+buildFormWithUser(lnk.replace(':user',row.uuid), "PUT", '<i class="fas fa-cogs"></i>', 'btn-outline-info')+'</li>';
                     lnk= '{{route("users.destroy",":user")}}';
-                    ul+='<li class="list-inline-item" title="Delete User">'+buildFormWithUser(lnk.replace(':user',row.uuid), "DELETE", '<i class="fas fa-user-times"></i>', 'btn-danger')+'</li>';
+                    ul+='<li class="list-inline-item" title="Delete User">'+buildFormWithUser(lnk.replace(':user',row.uuid), "DELETE", '<i class="fas fa-user-times"></i>', 'btn-outline-danger')+'</li>';
 
                     return ul+='</ul>';
                 },

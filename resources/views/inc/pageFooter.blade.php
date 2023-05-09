@@ -1,5 +1,5 @@
-<section class="clients fde footer pt-5"  id="contact">
-    <div class="container pt-5">
+<footer class="clients fde footer pt-2"  id="contact">
+    <div class="container-fluid ">
         <div class="row">
             <div class="col-sm-4">
                 <h4 class="title"><font class="h-style">Asim</font> General Contracting L.L.C.</h4>
@@ -9,12 +9,12 @@
             <div class="col-sm-4">
                 <h4 class="title h-style">Activities</h4>
                 <div class="category" style="font-size: smaller;">
-                    
+
                     @foreach (Session::get('services') as $service)
                         <a href="#">{{$service['title']}}</a>
-                        
+
                     @endforeach
-                    
+
                 </div>
             </div>
             <div class="col-sm-4">
@@ -36,4 +36,4 @@
     </div>
 
 
-</section>
+</footer>

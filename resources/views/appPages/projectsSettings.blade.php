@@ -9,100 +9,41 @@
     <div class="row"><!-- main .row -->
 
       <div class="col-md-8"><!-- services list start -->
-        <!--
-        <div class="card">
-          <div class="card-header"><h4>Gallery Images</h4></div>
-          <div class="card-body">
-            @if (count($projects) > 0)
-            <table class="table table-striped">
-              <tr  class="thead-dark">
-                <th>Image</th>
-                <th>Description</th>
-                <th>Status</th>
-              </tr>
-              @foreach ($projects as $project)
-                  <tr>
-                    <td> <img class="w-100" src="/storage/siteImages/Projects/{{$project->image_path}}"></td>
-                    <td>
-                      {{$project->title}}
-                      {!!$project->description!!}
-                    </td>
-                    <td>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getService({{$project->id}})">
-                          Edit
-                        </button>
-                        {!! Form::open(['action'=>['ProjectsController@destroy', $project->id], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                            {{Form::hidden('_method','DELETE')}}
-                            {{Form::submit('Delete',['class'=>'btn btn-danger rounded btn-sm'])}}
-                        {!! Form::close() !!}
-                      </div>
-                    </td>
-                  </tr>
-              @endforeach
-            </table>
-            @else
-                <p>No Images Found</p>
-            @endif
-          </div>
-        </div>
-        -->
-        @if (count($projects) > 0)
-          <div class="row">
-            @foreach ($projects as $project)
-            <div class="col-md-4 col-6 ">
-              <div class="card w-100" style="width: 18rem;">
-                <img class="card-img-top" src="/storage/siteImages/Projects/{{$project->image_path}}" alt="{{$project->title}}">
-                <div class="card-body px-2">
-                    <h5 class="card-title">{{$project->title}}</h5>
-                    <p class="card-title">{{$project->type}}</p>
-                    <p class="card-title">({{$project->year}}, {{$project->month}})</p>
-                    <div class="btn-group">
-                        @if ($project->projectStatus)
-                            <button type="button" id="{{$project->id}}-pstat" class="btn btn-success rounded btn-sm mr-2" onclick="updateProjectStatus({{$project->id}})">
-                                COMPLETE
-                            </button>
-                        @else
-                            <button type="button" id="{{$project->id}}-pstat" class="btn btn-info rounded btn-sm mr-2" onclick="updateProjectStatus({{$project->id}})">
-                                ONGOING
-                            </button>
-                        @endif
+        <div class="row justify-content-center">
+            <div class="col-md-12 mb-2">
+                <div class="card quality-card w-100 mb-3" ><!-- style="max-width: 540px;" -->
+                    <div class="card-body text-body">
+                        <table class="table table-sm table-striped table-responsive-sm w-100 text-light" id="projectList" style="font-size: 0.8rem;">
+                            <thead class="bg-dark">
+                              <tr>
+                                  {{-- <th></th> --}}
+                                  <th>Project</th>
+                                  <th>Status</th>
+                                  <th>Client</th>
+                                  <th>Main Contractor</th>
+                                  <th>Description</th>
+                                  <th>Detail</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-dark">
 
-                        @if ($project->status)
-                            <button type="button" id="{{$project->id}}-stat" class="btn btn-success rounded btn-sm" onclick="updateStatus({{$project->id}})">
-                                SHOW
-                            </button>
-                        @else
-                            <button type="button" id="{{$project->id}}-stat" class="btn btn-danger rounded btn-sm" onclick="updateStatus({{$project->id}})">
-                                HIDDEN
-                            </button>
-                        @endif
+                            </thead>
+                          </table>
                     </div>
-                  <p class="card-text">{!!$project->description!!}</p>
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getClientDetail({{$project->id}})">
-                      Edit
-                    </button>
-                    {!! Form::open(['action'=>['ProjectsController@destroy', $project->id], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                        {{Form::hidden('_method','DELETE')}}
-                        {{Form::submit('Delete',['class'=>'btn btn-danger rounded btn-sm'])}}
-                    {!! Form::close() !!}
-                  </div>
                 </div>
-              </div>
             </div>
-            @endforeach
-          </div>
-        @else
-            <p>No Images Found</p>
-        @endif
+        </div>
+
+        {{-- {!! Form::open(['action'=>['ProjectsController@destroy', $project->id], 'method'=>'POST', 'class'=>'pull-right']) !!}
+                        {{Form::hidden('_method','DELETE')}}
+                        {{Form::submit('Delete',['class'=>'btn btn-outline-danger rounded btn-sm'])}}
+                    {!! Form::close() !!} --}}
       </div><!-- services list End -->
 
       <div class="col-md-4"><!-- create service form -->
         <div class="card">
           <div class="card-header">
-            <h3>Add Service</h3>
+            <h3>Add Project</h3>
           </div>
           <div class="card-body">
             {!! Form::open(['action'=>'ProjectsController@store', 'method'=>'POST', 'enctype'=>'multipart/form-data']) !!}
@@ -236,9 +177,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Edit Project</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             {!! Form::open(['action'=>'ProjectsController@index', 'method'=>'POST', 'enctype'=>'multipart/form-data', 'id'=>'edit-gallery-form']) !!}
@@ -350,6 +289,47 @@
       </div>
     </div>
     <!-- Modal for edit Exit -->
+    <!-- Modal -->
+
+
+<div class="modal modal-lg fade" id="projectDet" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="h-style modal-title fs-5" id="ititle">title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center mb-1">
+                <div class="col-md-6 mb-1 ">
+                    <p class="card-text text-justify"><small class="text-dark"><b>Client :</b> <span id="iclientName"></span></small></p>
+                </div>
+
+                <div class="col-md-6 mb-1">
+                    <p class="card-text text-justify"><small class="text-dark"><b>Consultant :</b> <span id="iconsultant"></span></small></p>
+                </div>
+
+                <div class="col-md-6 mb-1">
+                    <p class="card-text text-justify"><small class="text-dark"><b>Main Contractor :</b> <span id="imainContractor"></span></small></p>
+                </div>
+
+                <div class="col-md-6 mb-1">
+                    <p class="card-text text-justify"><small class="text-dark"><b>Sub-Contractor :</b> <span id="isubContractor"></span></small></p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <span class="card-text text-justify" id="idescription"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 
 @endsection
 
@@ -361,6 +341,97 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
   });
+
+
+$(document).ready(function() {
+    //console.log("datatables called")
+    $('#projectList').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        order: [[1, 'desc']],
+
+        ajax: { url:"{{ route('projectList') }}",
+                type:'GET',
+        },
+        columns: [
+            { data: "title",
+            render: function ( data, type, row, meta ){
+                    var element= '<h6 class="h-style text-center text-primary">'+data+'</h6>';
+                    //console.log('month: '+row.month);
+                    //if(row.month!='null')
+                        element += '<p class="card-title text-center text-info">'+((row.month!='null')? ', '+row.month:'')+((row.year!='null')? ', '+row.year:'')+'</p>'
+                    return element;//'<button class="ms-badge ms-badge-primary btn btn-outline-secondary border border-secondary" style="font-size: .9rem;" onclick="getRequestInfo(\''+data+'\')">'+data+'</button>';
+                }
+            },
+            { data: "projectStatus",
+            render: function ( data, type, row, meta ){
+
+
+                var view = (row.status)? '<span id="'+row.proj_id+'-stat" class="badge bg-success btn-sm" onclick="updateStatus(\''+row.proj_id+'\')">SHOW </span>' : '<span id="'+row.proj_id+'-stat" class="badge bg-danger btn-sm" onclick="updateStatus(\''+row.proj_id+'\')">HIDDEN </span>'
+
+
+                    return ((data)? '<span id="'+row.proj_id+'-pstat" class="badge bg-success btn-sm mr-2" onclick="updateProjectStatus(\''+row.proj_id+'\')"> COMPLETE</span>' : '<span id="'+row.proj_id+'-pstat" class="badge bg-info btn-sm mr-2" onclick="updateProjectStatus(\''+row.proj_id+'\')">ONGOING</span>') + view;
+                }
+            },
+            { data: "clientName",
+            render: function ( data, type, row, meta ){
+
+                    return data;
+                }
+            },
+            { data: "mainContractor",
+            render: function ( data, type, row, meta ){
+
+                    return data;
+                }
+            },
+            { data: "description",
+            render: function ( data, type, row, meta ){
+
+                    return data.replaceAll('&amp;amp;','&').replaceAll('&gt;','>').replaceAll('&lt;','<');
+                }
+            },
+            { data: "proj_id",
+            render: function ( data, type, row, meta ){
+                    var opt = '<button type="button" class="btn btn-outline-primary rounded btn-sm mr-2" onclick="getClientDetail(\''+data+'\')"><i class="fas fa-edit"></i></button>'
+                    return '<button class="btn btn-outline-info rounded py-1 px-2" onClick="getProjectDetails(\''+data+'\')"><i class="fas fa-info"></i></button>'+opt;
+                }
+            },
+        ],
+    });
+});
+
+function getProjectDetails(project){
+    var req = "{{ route('users.index') }}";
+    //console.log('url : '+req);
+    //var get = {{ route('projectDetails') }};
+    $.ajax({
+         type:'POST',
+         url: "{{ route('projectDetails') }}",
+         data:{project:project},
+         success:function(data){
+            //alert(data.setting.sName);
+            console.log('title: '+data.title)
+            $('#idescription').empty();
+            $('#ititle').text(data.title);
+            $('#iclientName').text(data.clientName);
+            $('#iconsultant').text(data.consultant);
+            $('#imainContractor').text(data.mainContractor);
+            $('#isubContractor').text(data.subContractor);
+            $('#idescription').append($.parseHTML( data.description.replaceAll('&amp;','&') ));
+
+            $('#projectDet').modal('show');
+            // var response = data.original;
+            // if (data.statusCode==200) {
+            //     toastr[response.status](response.remarks)
+            // } else {
+            //     toastr[response.status](response.remarks)
+            // }
+
+         }
+      });
+}
 
   function getClientDetail(id){
 
@@ -387,7 +458,7 @@
            $('#edescription-ckeditor').val(data.projects.description);
            console.log("Description : "+data.projects.description);
            $("#edit-gallery-form").attr('action', req+'/'+id);
-           $("#edit-gallery").modal();
+           $("#edit-gallery").modal('show');
          }
       });
   }
@@ -404,13 +475,13 @@
              console.log("Status code : "+status);
             //alert(data.setting.sName);
             if (data.projects.status) {
-                $("#"+data.projects.id+"-stat").addClass("btn-success");
-                $("#"+data.projects.id+"-stat").text("SHOW");
-                $("#"+data.projects.id+"-stat").removeClass("btn-danger");
+                $("#"+data.projects.proj_id+"-stat").addClass("bg-success");
+                $("#"+data.projects.proj_id+"-stat").text("SHOW");
+                $("#"+data.projects.proj_id+"-stat").removeClass("bg-danger");
             } else {
-                $("#"+data.projects.id+"-stat").addClass("btn-danger");
-                $("#"+data.projects.id+"-stat").text("HIDDEN");
-                $("#"+data.projects.id+"-stat").removeClass("btn-success");
+                $("#"+data.projects.proj_id+"-stat").addClass("bg-danger");
+                $("#"+data.projects.proj_id+"-stat").text("HIDDEN");
+                $("#"+data.projects.proj_id+"-stat").removeClass("bg-success");
             }
 
          },
@@ -439,13 +510,13 @@
              console.log("Status code : "+status);
             //alert(data.setting.sName);
             if (data.projects.projectStatus) {
-                $("#"+data.projects.id+"-pstat").addClass("btn-success");
-                $("#"+data.projects.id+"-pstat").text("COMPLETE");
-                $("#"+data.projects.id+"-pstat").removeClass("btn-info");
+                $("#"+data.projects.proj_id+"-pstat").addClass("bg-success");
+                $("#"+data.projects.proj_id+"-pstat").text("COMPLETE");
+                $("#"+data.projects.proj_id+"-pstat").removeClass("bg-info");
             } else {
-                $("#"+data.projects.id+"-pstat").addClass("btn-info");
-                $("#"+data.projects.id+"-pstat").text("ONGOING");
-                $("#"+data.projects.id+"-pstat").removeClass("btn-success");
+                $("#"+data.projects.proj_id+"-pstat").addClass("bg-info");
+                $("#"+data.projects.proj_id+"-pstat").text("ONGOING");
+                $("#"+data.projects.proj_id+"-pstat").removeClass("bg-success");
             }
 
          },

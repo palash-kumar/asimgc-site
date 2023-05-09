@@ -1,19 +1,16 @@
 <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm navbar-default navbar-expand-lg fixed-top border-bottom"> -->
-    <nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/home') }}">
-        <img src="/storage/siteImages/{{Session::get('companySettigs')['logo']}}" alt="{{ config('app.name', 'Laravel') }}">
+    <nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/home') }}">
+                <img src="/storage/siteImages/{{Session::get('companySettigs')['logo']}}" alt="{{ config('app.name', 'Laravel') }}">
+            </a>
 
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             @if (!Auth::guest())
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                 </li>
@@ -34,7 +31,6 @@
                 </li>
             </ul>
             @endif
-
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
@@ -50,7 +46,7 @@
                         </li>
                     @endif
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-target="#navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
@@ -68,9 +64,11 @@
                     </li>
                 @endguest
             </ul>
+          </div>
         </div>
-    </div>
-</nav>
+    </nav>
+
+
 
 @if (!Auth::guest())
 <!--<div class="sidenav float-right position-sticky mt-5">

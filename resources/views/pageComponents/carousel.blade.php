@@ -1,11 +1,11 @@
 <section id="home" class="fde">
-    <div id="carouselExampleControls" class="carousel fade-carousel slide" data-ride="carousel">
+    <div id="carouselExampleControls" class="carousel fade-carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner ">
-          
+
           @php
           $count=0
           @endphp
-          
+
           @foreach ($slider as $image)
               <!--<a href="storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
                   <img src="storage/siteImages/Gallery/{{$image->image_path}}" class="zoom img-fluid "  alt="">
@@ -49,7 +49,7 @@
         </a>
       </div>
 
-    
 
-    
+
+
 </section>

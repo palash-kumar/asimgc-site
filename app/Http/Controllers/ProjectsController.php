@@ -27,13 +27,13 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Projects::all();
+        //$projects = Projects::all();
         $months = array(1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December');
         $years = range(date('Y'), 1989);
         //array_unshift($years, "Select year");
         //array_unshift($months, "Select month");
-        //User::all()->random(10); // The amount of items you wish to receive
-        return view('appPages.projectsSettings')->with('projects',$projects)->with('months',$months)->with('years',$years);
+        //User::all()->random(10); // The amount of items you wish to receive ->with('projects',$projects)
+        return view('appPages.projectsSettings')->with('months',$months)->with('years',$years);
     }
 
     /**
@@ -58,7 +58,7 @@ class ProjectsController extends Controller
             'title'=>'required',
             'type'=>'required'
         ]);
-        
+
         error_log('->cover_image is : '.$request->hasFile('cover_image'));
         //// Handle File Upload
         if($request->hasFile('cover_image')){
@@ -83,7 +83,7 @@ class ProjectsController extends Controller
         $company = SiteSettings::find(1)->where('sValue', $host)->first();
 
         $projects = new Projects;//::find($id);
-        
+
         $projects->title = $request->input('title');
         $projects->type = $request->input('type');
         $projects->description = $request->input('description');
@@ -98,7 +98,7 @@ class ProjectsController extends Controller
         error_log('->project Status : '.$request->has('projectStatus'));
         $projects->projectStatus = $request->has('projectStatus');
         $projects->status = $request->has('status');
-        
+        $projects->proj_id = 'proj_'.time();
         $projects->image_path = $filenameToStore;
         $projects->com_id = $company->companyId;
         $projects->save();
@@ -125,7 +125,7 @@ class ProjectsController extends Controller
      */
     public function edit($id)
     {
-        $projects = Projects::find($id);
+        $projects = Projects::where(['proj_id'=>$id])->first();
 
         return response()->json(['projects'=>$projects]);
     }
@@ -144,8 +144,8 @@ class ProjectsController extends Controller
             'edescription'=>'required',
             'ecover_image'=>'image|nullable|max:1999'
         ]);
-        
-        $projects = Projects::find($id);
+
+        $projects = Projects::where(['proj_id'=>$id])->first();
         error_log('->cover_image is : '.$request->hasFile('ecover_image'));
         //// Handle File Upload
         if($request->hasFile('ecover_image')){
@@ -169,8 +169,8 @@ class ProjectsController extends Controller
             }
         }
 
-        
-        
+
+
         $projects->title = $request->input('etitle');
         $projects->type = $request->input('etype');
         $projects->description = $request->input('edescription');
@@ -216,7 +216,7 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        $projects = Projects::find($id);
+        $projects = Projects::where(['proj_id'=>$id])->first();
         // Check for the correct user
         /*if(auth()->user()->id !== $post->user_id){
             return redirect('/posts')->with('error', 'Un-authorized Page!');
@@ -234,7 +234,7 @@ class ProjectsController extends Controller
 
     public function updateStatus(Request $request, $id){
 
-        $projects = Projects::find($id);
+        $projects = Projects::where(['proj_id'=>$id])->first();
         if($projects->status)
             $projects->status = FALSE;
         else
@@ -247,7 +247,7 @@ class ProjectsController extends Controller
 
     public function updateProjectStatus(Request $request, $id){
 
-        $projects = Projects::find($id);
+        $projects = Projects::where(['proj_id'=>$id])->first();
         if($projects->projectStatus)
             $projects->projectStatus = FALSE;
         else
@@ -256,5 +256,13 @@ class ProjectsController extends Controller
         $projects->save();
 
         return response()->json(['projects'=>$projects]);
+    }
+
+    public function projectList(){
+        error_log("projectList called..");
+        $company = Session::get("company");
+        //$requests=Requests::where('area_id','=', $companySettigs->com_id)->orderByDesc ('id')->with(['com', 'reqInfos', 'reqInfos.app', 'reqInfos.pack'])->get();
+        $projects = Projects::where(['com_id' => $company->companyId])->orderBy('projectStatus', 'ASC')->get();
+        return DataTables::of($projects)->toJson();
     }
 }

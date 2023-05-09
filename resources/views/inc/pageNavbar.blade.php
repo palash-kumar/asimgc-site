@@ -3,9 +3,9 @@
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-expand-lg fixed-top border-bottom "  id="navbar">
     <a class="navbar-brand" href="https://dev.asimgc.com/"><img src="/storage/siteImages/{{Session::get('companySettigs')['logo']}}" alt="{{ config('app.name', 'Laravel') }}"></a>
-    <button class="navbar-toggler border rounded" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02" style="">

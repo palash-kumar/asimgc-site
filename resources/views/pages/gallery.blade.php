@@ -12,6 +12,18 @@
             </div>
         </div>
         <div class="row image-box justify-content-center gallery-show" id=”images-wrapper”>
+            <ul class="list-inline gallery" id="gallery">
+                @foreach ($certificates as $image)
+                <li class="list-inline-item mb-2 pics animation all 2">
+                    <a href="storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
+                        <img class="img-fluid" src="storage/siteImages/Gallery/{{$image->image_path}}">
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+
+        </div>
+        <div class="row image-box justify-content-center gallery-show" id=”images-wrapper”>
             <!-- Grid row -->
             <div class="gallery" id="gallery">
                 <!-- Grid column -->
