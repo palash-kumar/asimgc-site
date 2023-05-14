@@ -241,7 +241,7 @@ function buildFormWithUser(url, method, action, style){
            $('#eemail').val(data.user.email);
            // alert(data.service.title);
            $("#edit-setting-form").attr('action', req+'/updateUserInfo/'+id);
-           $("#edit-setting").modal();
+           $("#edit-setting").modal('show');
          }
       });
   }
@@ -270,13 +270,13 @@ function buildFormWithUser(url, method, action, style){
 function changeRole(user, current){
     $("#current-role").text(current);
     $("#usr").val(user);
-    $("#edit-role").modal();
+    $("#edit-role").modal('show');
 }
 
 function changeDesignation(user, current){
     $("#current-desig").text(current);
     $("#desg-usr").val(user);
-    $("#edit-desig").modal();
+    $("#edit-desig").modal('show');
 }
 
 $('#update-role').on('click', function(){
