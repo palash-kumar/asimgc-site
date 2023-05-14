@@ -170,7 +170,7 @@ $(document).ready(function() {
             render: function ( data, type, row, meta ) {
                 var ul = '<ul class="list-inline">';
                     ul+='<li class="list-inline-item"><span class="text-primary px-1"><i class="fas fa-id-badge"></i> '+(data? data.title : "Not Assigned")+'</span></li>';
-                    ul+='<li class="list-inline-item"><span class="text-primary px-1 border rounded border-info" title="Change Designation" onclick="changeDesignation(\''+row.uuid+'\',\''+(data? data.title : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
+                    ul+='<li class="list-inline-item"><span class="btn btn-outline-primary rounded btn-sm mr-2" title="Change Designation" onclick="changeDesignation(\''+row.uuid+'\',\''+(data? data.title : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
                     return ul+'</ul>';
                     //return '<span class="text-info  px-1"><i class="fas fa-id-badge"></i> '+(data? data.title : "Not Assigned")+'</span>';
                 }, },
@@ -178,7 +178,7 @@ $(document).ready(function() {
             render: function ( data, type, row, meta ) {
                 var ul = '<ul class="list-inline">';
                     ul+='<li class="list-inline-item"><span class="text-primary px-1"><i class="fas fa-user-secret"></i> '+(data? data.name : "Not Assigned")+'</span></li>';
-                    ul+='<li class="list-inline-item"><span class="text-primary px-1 border rounded border-info" title="Change Role" onclick="changeRole(\''+row.uuid+'\',\''+(data? data.name : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
+                    ul+='<li class="list-inline-item"><span class="btn btn-outline-info rounded btn-sm mr-2" title="Change Role" onclick="changeRole(\''+row.uuid+'\',\''+(data? data.name : "Not Assigned")+'\')" ><i class="fas fa-retweet"></i></span></li>';
                     return ul+'</ul>';
                 },
             },

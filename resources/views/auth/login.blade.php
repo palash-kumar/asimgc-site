@@ -16,9 +16,7 @@
                         @csrf
 
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
-                            </div>
+                            <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
                             <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                             @error('username')
@@ -28,9 +26,7 @@
                             @enderror
                         </div>
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                             @error('password')

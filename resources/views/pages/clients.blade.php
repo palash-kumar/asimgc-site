@@ -23,13 +23,6 @@
         <div class="row justify-content-center">
             <div class="col-md-12 mb-2">
                 <ul class="list-inline" id="clientsls">
-                    {{-- @foreach ($clients as $client)
-                    <li class="list-inline-item mb-1">
-                        <div class="card">
-                            <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
-                        </div>
-                    </li>
-                    @endforeach --}}
 
                 </ul>
             </div>

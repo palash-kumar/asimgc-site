@@ -8,101 +8,68 @@
 
     <div class="row"><!-- main .row -->
 
-      <div class="col-md-8"><!-- services list start -->
-        <div class="row justify-content-center">
-            <div class="col-md-12 mb-2">
-                <div class="card quality-card w-100 mb-3" ><!-- style="max-width: 540px;" -->
-                    <div class="card-body text-body">
-                        <table class="table table-sm table-striped table-responsive-sm w-100 text-light" id="clientList" style="font-size: 0.8rem;">
-                            <thead class="bg-dark">
-                              <tr>
-                                  <th>Logo</th>
-                                  <th>Name</th>
-                                  <th>Description</th>
-                                  <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody class="text-dark">
+      <div class="col-md-12"><!-- services list start -->
+        <div class="card quality-card w-100 mb-3" ><!-- style="max-width: 540px;" -->
+            <div class="card-header d-flex justify-content-between">
+                <h4>Clients</h4>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#add-client"><i class="fas fa-user-plus"></i></button>
+            </div>
+            <div class="card-body text-body">
+                <table class="table table-sm table-striped table-responsive-sm w-100 text-light" id="clientList" style="font-size: 0.8rem;">
+                    <thead class="bg-dark">
+                      <tr>
+                          <th>Logo</th>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-dark">
 
-                            </thead>
-                          </table>
-                    </div>
-                </div>
+                    </thead>
+                  </table>
             </div>
         </div>
-        {{-- @if (count($clients) > 0)
-          <div class="row">
-            @foreach ($clients as $client)
-            <div class="col-md-4 col-6 ">
-              <div class="card w-100" style="width: 18rem;">
-                <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" alt="{{$client->title}}">
-                <div class="card-body px-2">
-                    <h5 class="card-title">{{$client->title}}</h5><span>
-                        @if ($client->status)
-                            <button type="button" id="{{$client->id}}-stat" class="btn btn-success rounded btn-sm" onclick="updateStatus({{$client->id}})">
-                                ACTIVE
-                            </button>
-                        @else
-                            <button type="button" id="{{$client->id}}-stat" class="btn btn-danger rounded btn-sm" onclick="updateStatus({{$client->id}})">
-                                INACTIVE
-                            </button>
-                        @endif
-                    </span>
-                  <p class="card-text">{!!$client->description!!}</p>
 
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-primary rounded btn-sm mr-2" onclick="getClientDetail({{$client->id}})">
-                      Edit
-                    </button>
-                    {!! Form::open(['action'=>['ClientsController@destroy', $client->id], 'method'=>'POST', 'class'=>'pull-right']) !!}
-                        {{Form::hidden('_method','DELETE')}}
-                        {{Form::submit('Delete',['class'=>'btn btn-danger rounded btn-sm'])}}
-                    {!! Form::close() !!}
-                  </div>
-                </div>
-              </div>
-            </div>
-            @endforeach
-          </div>
-        @else
-            <p>No Images Found</p>
-        @endif --}}
       </div><!-- services list End -->
 
-      <div class="col-md-4"><!-- create service form -->
-        <div class="card">
-          <div class="card-header">
-            <h3>Add Client</h3>
-          </div>
-          <div class="card-body">
-            {!! Form::open(['action'=>'ClientsController@store', 'method'=>'POST', 'enctype'=>'multipart/form-data']) !!}
-              <div class="row mb-2">
-                <div class="col-md-12 col-12">
-                  <div class="fom-group">
-                    {{Form::label('title', 'Title')}}
-                    {{Form::text('title', '', ['class'=>'form-control', 'placeholder'=>'Title'])}}
-                  </div>
-                </div>
-              </div>
-
-
-                <div class="fom-group">
-                    {{Form::label('description', 'Description')}}
-                    {{Form::textarea('description', '', ['id'=>'description-ckeditor','class'=>'form-control', 'placeholder'=>'Clients Description'])}}
-                </div>
-                <div class="fom-group">
-                    {{Form::file('cover_image')}}
-                </div>
-
-                <div class="row justify-content-center mt-2">
-                  <div class="col-md-6">{{Form::submit('Submit',['class'=>'btn btn-primary w-100'])}}</div>
-                </div>
-            {!! Form::close() !!}
-          </div>
-        </div>
-      </div><!-- create service form end -->
     </div><!-- main .row END -->
 
+    <div class="modal fade" id="add-client" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Client</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['action'=>'ClientsController@store', 'method'=>'POST', 'enctype'=>'multipart/form-data']) !!}
+                <div class="row mb-2">
+                    <div class="col-md-12 col-12">
+                    <div class="fom-group">
+                        {{Form::label('title', 'Title')}}
+                        {{Form::text('title', '', ['class'=>'form-control', 'placeholder'=>'Title'])}}
+                    </div>
+                    </div>
+                </div>
+
+                    <div class="fom-group">
+                        {{Form::label('description', 'Description')}}
+                        {{Form::textarea('description', '', ['id'=>'description-ckeditor','class'=>'form-control', 'placeholder'=>'Clients Description'])}}
+                    </div>
+                    <div class="fom-group">
+                        {{Form::file('cover_image')}}
+                    </div>
+
+                    <div class="row justify-content-center mt-2">
+                    <div class="col-md-6">{{Form::submit('Submit',['class'=>'btn btn-primary w-100'])}}</div>
+                    </div>
+                {!! Form::close() !!}
+            </div>
+          </div>
+        </div>
+    </div>
     <!-- Modal for edit -->
 
     <!-- Modal -->
@@ -110,7 +77,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Client Information</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -185,10 +152,10 @@
             },
             { data: "client_id",
             render: function ( data, type, row, meta ){
-                    var opt = (row.status)? '<span id="'+row.proj_id+'-stat" class="badge bg-success btn-sm" onclick="updateStatus(\''+row.client_id+'\')">SHOW </span>' : '<span id="'+row.proj_id+'-stat" class="badge bg-danger btn-sm" onclick="updateStatus(\''+row.proj_id+'\')">HIDDEN </span>'
-                    opt += '<button type="button" class="btn btn-outline-primary rounded btn-sm mr-2" onclick="getClientDetail(\''+data+'\')"><i class="fas fa-edit"></i></button>'
+                    var opt = (row.status)? '<span id="'+data+'-stat" class="btn btn-outline-success btn-sm" onclick="updateStatus(\''+data+'\')"><i class="fas fa-eye"></i> </span>' : '<span id="'+data+'-stat" class="btn btn-outline-danger btn-sm" onclick="updateStatus(\''+row.proj_id+'\')"><i class="fas fa-eye-slash"></i> </span>'
+                    opt += '<span class="btn btn-outline-primary btn-sm mr-2" onclick="getClientDetail(\''+data+'\')"><i class="fas fa-edit"></i></span>'
 
-                    return '<button class="btn btn-outline-info rounded py-1 px-2" onClick="getProjectDetails(\''+data+'\')"><i class="fas fa-info"></i></button>'+opt;
+                    return '<span class="btn btn-outline-info" onClick="getProjectDetails(\''+data+'\')"><i class="fas fa-info"></i></span>'+opt;
                 }
             },
         ],

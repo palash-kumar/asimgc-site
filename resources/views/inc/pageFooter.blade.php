@@ -1,4 +1,4 @@
-<footer class="clients fde footer pt-2"  id="contact">
+<footer class="clients fde footer pt-4" >
     <div class="container-fluid ">
         <div class="row">
             <div class="col-sm-4">
@@ -7,7 +7,7 @@
 
             </div>
             <div class="col-sm-4">
-                <h4 class="title h-style">Activities</h4>
+                <h4 class="title h-style">Services</h4>
                 <div class="category" style="font-size: smaller;">
 
                     @foreach (Session::get('services') as $service)
@@ -30,7 +30,7 @@
                 </ul>
             </div>
         </div>
-        <hr>
+        {{-- <hr> --}}
 
        <!-- <div class="row text-center"> © 2017. Made with  by sumi9xm.</div> -->
     </div>

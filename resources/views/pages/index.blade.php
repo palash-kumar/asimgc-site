@@ -34,7 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <h1>Our <font class="h-style">Services</font></h1>
+                        <h1><font class="h-style">Services</font></h1>
                         <div class="category">
                             @foreach (Session::get('services') as $service)
                                 <p data-aos="zoom-in-left" data-aos-delay="450"><i class="{{$service->icon}}"></i> {{$service->title}}</p>
@@ -76,18 +76,18 @@
 <!-- ./About End ================================================== -->
 
 <!-- safety ================================================== -->
-<section id="safety" class="fde">
+<section id="safety" class="fde" data-aos="fade-left" >
     <div class="container py-3">
         <div class="row ">
             <div class="col-md-12">
-                <div class="well text-center shadow" style="background: transparent;">
-                    <h2 >Our <font class="h-style">Commitment</font></h2>
+                <div class="well text-center " style="background: transparent;">
+                    <h2 ><font class="title-style shadow-sm">Commitment</font></h2>
                 </div>
             </div>
         </div>
         <div class="row content-center" id="commitments">
             @foreach ($commitments as $commitment)
-            <div class="col-md-6 col-sm-6  col-6 px-1" data-aos="flip-left">
+            <div class="col-md-6 col-sm-6  col-6 px-1" data-aos="flip-left" data-aos-delay="450">
                 <div class="card quality-card mb-3" style="max-width: 540px;">
                     <div class="row no-gutters">
                     <div class="col-md-4 align-self-center">
@@ -110,17 +110,17 @@
 </section>
 <!-- ./safety ================================================== -->
 <!-- self ================================================== -->
-<section id="self" class="fde">
+<section id="self" class="fde" data-aos="fade-right">
     <div class="container py-3">
         <div class="row ">
             <div class="col-md-12">
-                <div class="well text-center shadow">
-                    <h2>The <font class="h-style">Members</font></h2>
+                <div class="well text-center ">
+                    <h2><font class="title-style shadow-sm">Members</font></h2>
                 </div>
             </div>
         </div>
 
-        <div class="row content-center mt-2 mb-2" id="team">
+        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-left">
             @foreach ($users as $user)
             @if ($user->user_roles_id == 1)
 
@@ -143,7 +143,7 @@
             @endforeach
         </div>
 
-        <div class="row content-center mt-2 mb-2" id="team">
+        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-right">
             @foreach ($users as $user)
             @if ($user->user_roles_id == 2)
 
@@ -166,7 +166,7 @@
             @endforeach
         </div>
 
-        <div class="row content-center mt-2 mb-2" id="team">
+        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-left">
             @foreach ($users as $user)
             @if ($user->user_roles_id == 3)
 
@@ -176,10 +176,10 @@
                         <div class="col-md-4 col-4 p-0">
                             <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
                         </div>
-                        <div class="col-md-8 col-8 align-self-center text-light p-1">
+                        <div class="col-md-8 col-8 align-self-center p-1">
                         <h6 class="title text-center h-style">{{$user->name}}</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
-                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
+                            <p class="text-center"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
+                            <p class="text-center"><b>{{$user->email}}</b></p>
                         </div>
                     </div>
                 </div>
@@ -192,54 +192,40 @@
 </section>
 <!-- ./self ================================================== -->
 <!-- Clients ================================================== -->
-<section class="clients fde" id="clients" >
+<section class="clients fde" id="clients" data-aos="fade-right">
     <div class="container-fluid py-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
-                    <h2>Our <font class="h-style">Clients</font></h2>
+                    <h2><font class="title-style shadow-sm">Clients</font></h2>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center" id="clientss">
-            <div class="col-md-11">
-                <ul class="list-inline">
-                    @foreach ($clients as $client)
-                    <li class="list-inline-item mb-1">
-                        <div class="card">
-                            <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
-                        </div>
-                    </li>
-                    @endforeach
+            <div class="col-md-11 mt-2">
+                <ul class="list-inline" id="clientsls">
 
                 </ul>
             </div>
-            {{-- @foreach ($clients as $client)
-            <div class="col-6 col-md-3 my-1">
-                <div class="card">
-                    <img class="card-img-top" src="/storage/siteImages/Clients/{{$client->image_path}}" height="100px">
-                </div>
-            </div>
-            @endforeach --}}
         </div>
     </div>
 </section>
 <!-- ./Clients End ================================================== -->
 
 <!-- Projects ================================================== -->
-<section class=" background-dot fde" data-aos="zoom-in-left" id="projects" >
+<section class="  fde" data-aos="fade-left" id="projects" >
     <div class="container py-5" id="projects-div">
         <div class="row">
             <div class="col-md-12">
-                <div class="well text-center shadow">
-                    <h2>Our <font class="h-style">Projects</font></h2>
+                <div class="well text-center ">
+                    <h2><font class="title-style shadow-sm">Projects</font></h2>
                 </div>
             </div>
         </div>
         <div class="row justify-content-center ">
             <div class="col-md-12 mb-2">
-                <div class=" w-100 mb-3 py-3" ><!-- style="max-width: 540px;" -->
-                    <div class="row no-gutters justify-content-center text-dark" id="project-stats">
+                <div class=" w-100 mb-3 py-3 background-dot" ><!-- style="max-width: 540px;" -->
+                    <div class="row no-gutters  justify-content-center text-dark" id="project-stats">
 
 
                         @foreach ($projectsStatus as $key => $value)
@@ -272,12 +258,12 @@
     </div>
 </section>
 <!-- ./Projects End ================================================== -->
-<section class="action-sec fde" id="gallery">
+<section class="action-sec fde" id="gallery" data-aos="fade-right">
     <div class="container py-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="well text-center shadow">
-                    <h2><font class="h-style">Gallery</font></h2>
+                <div class="text-center ">
+                    <h2><font class="title-style shadow-sm">Gallery</font></h2>
                 </div>
             </div>
         </div>
@@ -292,22 +278,13 @@
                 @if (count($certificates) > 0)
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <h2 class="text-center"><font class="h-style">Certifications</font></h2>
+                        <h2 class="text-center"><font class="h-style shadow-sm">Certifications</font></h2>
                     </div>
                 </div>
                 <div class="row image-box justify-content-center gallery-show" id=”images-wrapper”>
-                    <!-- Grid row -->
-                    <div class="gallery" id="gallery">
-                        <!-- Grid column -->
-                        @foreach ($certificates as $image)
-                        <div class="mb-2 pics animation all 2">
-                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
-                                <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
-                            </a>
-                        </div>
-                        @endforeach
-                        <!-- Grid column -->
-                    </div>
+                    <ul class="list-inline gallery" id="certificates">
+
+                    </ul>
 
                 </div>
                 @endif
@@ -321,7 +298,7 @@
                 <div class="row image-box justify-content-center" id=”images-wrapper”>
 
                     <!-- Grid row -->
-                    <div class="gallery" id="gallery">
+                    <div class="gallery" >
                         <!-- Grid column -->
                         @foreach ($frontGalery as $image)
                         <div class="mb-2 pics animation all 2">
@@ -375,7 +352,7 @@
                 //console.log("totalProjects : "+{{$totalProjects}});
                 odometer.innerHTML = completed;
                 odometerTotal.innerHTML = {{$totalProjects}};
-                odometerOngoing.innerHTML = $("#ongoing").val();
+                //odometerOngoing.innerHTML = $("#ongoing").val();
                 //odometerTotal
                 /*var completed = $("#completed").val();
                 console.log("completed : "+completed);
@@ -384,7 +361,55 @@
         }
     });
 
+    $(document).ready(function() {
+        var req = "{{ route('clientsls') }}"
+    //console.log('url : '+req);
+    //get = req+'/'+id+'/edit';
+    $.ajax({
+         type:'GET',
+         url:req,
+         //data:{id:id},
+         success:function(data){
+            var element = '';
+            $.each( data, function( key, value ) {
+                element = '<li class="list-inline-item mb-1">'
+                            +'<div class="card">'
+                            +'<img class="card-img-top" src="/storage/siteImages/Clients/'+value.image_path+'" height="100px">'
+                            +'</div>'
+                        +'</li>';
 
+                        $('#clientsls').append(element);
+            });
+
+         }
+      });
+    })
+
+    $(document).ready(function() {
+        $.ajax({
+        type:'GET',
+        url:"{{ route('galleryImages') }}",
+        data:{page:'index'},
+        success:function(data){
+        $.each(data.certificates, function(key, val){
+                $('#certificates').append(gallaryImageComponent(val.image_path))
+        } )
+
+        $.each(data.gallery, function(key, val){
+                $('#images').append(gallaryImageComponent(val.image_path))
+        } )
+        }
+    });
+    })
+
+
+    function gallaryImageComponent(image_path){
+        return '<li class="list-inline-item mb-2 pics animation all 2">'
+                    +'<a href="storage/siteImages/Gallery/'+image_path+'" class="fancybox" rel="gallery1">'
+                        +'<img class="img-fluid" src="storage/siteImages/Gallery/'+image_path+'">'
+                    +'</a>'
+                +'</li>';
+    }
 
 </script>
 @endsection

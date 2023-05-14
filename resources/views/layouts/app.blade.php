@@ -93,6 +93,14 @@
             .sidenav {padding-top: 100px;}
             .sidenav a {font-size: 18px;}
             }
+
+            td
+            {
+            max-width: 20%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: wrap;
+            }
     </style>
 </head>
 <body>

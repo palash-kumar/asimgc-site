@@ -25,10 +25,14 @@ Route::get('/gallery', 'PagesController@gallery')->name('gallery');
 
 Route::get('/projects', 'PagesController@projects')->name('projects');
 Route::get('/clients', 'PagesController@clients')->name('clients');
+
+// api's for frontend client
 Route::get('/projectList', 'PagesApiController@projectList')->name('projectList');
 Route::get('/clientsls', 'PagesApiController@clientList')->name('clientsls');
 Route::post('/projectDetails', 'PagesApiController@getProjectDetails')->name('projectDetails');
+Route::get('/galleryImages', 'PagesApiController@galleryImages')->name('galleryImages');
 
+// api's for frontend client END
 Route::get('/app/dev', 'PagesController@developmentTest')->name('dev');
 
 
@@ -54,7 +58,8 @@ Route::resource('app/settings','SiteSettingsController');
 Route::post('app/settings/updateStatus/{id}','SiteSettingsController@updateStatus');
 
 Route::resource('app/gallery','GallerySettingsController');
-Route::put('app/gallery/updateCategory/{id}','GallerySettingsController@updateImageCategory');
+Route::put('app/gallery/updateCategory/{id}','GallerySettingsController@updateImageCategory')->name('updateImageCat');
+Route::get('app/gallery/list','GallerySettingsController@galleryLs')->name('galleryLs');
 
 Route::resource('app/clients','ClientsController');
 Route::post('app/clients/updateStatus/{id}','ClientsController@updateStatus');

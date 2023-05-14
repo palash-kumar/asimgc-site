@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\AppModels\Gallery;
 use App\Models\AppModels\ImageCategory;
 use App\Models\AppModels\SiteSettings;
+use Yajra\DataTables\DataTables;
+
+use Session;
 
 class GallerySettingsController extends Controller
 {
@@ -25,15 +28,30 @@ class GallerySettingsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $gallery = Gallery::all();
         $imageCategory = ImageCategory::all()->pluck('title', 'id')->toArray();
-        error_log('->GallerySettingsController is : '.$imageCategory[1]);
-        /*foreach ($gallery as $image) {
-            error_log('->image is : '.$image->imageCategory());
-        }*/
-        return view('appPages.gallerySettings')->with('gallery',$gallery)->with('imageCategory',$imageCategory);
+        $cats = ImageCategory::select('id','title')->get();//all()->pluck('title', 'id')->toArray();
+        error_log('->GallerySettingsController is : '.$imageCategory[1].' request: '.$request->ajax());
+        if ($request->ajax()) {
+            error_log('->GallerySettingsController request: '.$request->ajax());
+            $company = Session::get("company");
+            //$users = User::with('userRole', 'designation', 'userServices');
+            $gallery = Gallery::where(['com_id' => $company->companyId])->orderBy('status', 'ASC')->get();
+            //error_log('$gallery: '.$gallery);
+            return Datatables::of($gallery)->addColumn('cat', function(Gallery $gal){
+                return $gal->imageCategory->title ;
+            })->addColumn('cat_id', function(Gallery $gal){
+                return $gal->imageCategory->id ;
+            })->toJson();//make(true)
+            /*return DataTables::eloquent($users)
+                ->addColumn('users', function (Post $post) {
+                    return $post->users->name;
+                })
+                ->toJson();*/
+        }
+        return view('appPages.gallerySettings')->with('gallery',$gallery)->with(['imageCategory'=>$imageCategory, 'cats'=>$cats]);
     }
 
     /**
@@ -59,7 +77,7 @@ class GallerySettingsController extends Controller
             'image_cat'=>'required',
             'cover_image'=>'image|required|max:1999'
         ]);
-        
+
         error_log('->cover_image is : '.$request->hasFile('cover_image'));
         //// Handle File Upload
         if($request->hasFile('cover_image')){
@@ -84,7 +102,7 @@ class GallerySettingsController extends Controller
         $company = SiteSettings::find(1)->where('sValue', $host)->first();
 
         $gallery = new Gallery;//::find($id);
-        
+
         $gallery->title = $request->input('title');
         $gallery->description = $request->input('description');
         $gallery->detail = $request->input('detail');
@@ -134,7 +152,7 @@ class GallerySettingsController extends Controller
             'etitle'=>'required',
             'ecover_image'=>'image|nullable|max:1999'
         ]);
-        
+
         $gallery = Gallery::find($id);
         error_log('->cover_image is : '.$request->hasFile('ecover_image'));
         //// Handle File Upload
@@ -159,8 +177,8 @@ class GallerySettingsController extends Controller
             }
         }
 
-        
-        
+
+
         $gallery->title = $request->input('etitle');
         $gallery->description = $request->input('edescription');
         $gallery->detail = $request->input('edetail');
@@ -200,9 +218,15 @@ class GallerySettingsController extends Controller
     public function updateImageCategory(Request $request, $id){
 
         $gallery = Gallery::find($id);
-        $gallery->image_category_id = $request->input('image_cat-'.$id);
+        $gallery->image_category_id = $request->input('category');
         $gallery->save();
 
         return redirect('/app/gallery')->with('success', 'Image Category Updated For '.$gallery->title);
+    }
+
+    public function galleryLs(){
+        $company = Session::get("company");
+        $gallery = Gallery::where(['com_id' => $company->companyId])->orderBy('status', 'ASC')->get();
+        return DataTables::of($gallery)->toJson();
     }
 }

@@ -2,10 +2,10 @@
 
 .footer {
     padding: 50px 0 20px 0;
-    background-color: #35404f;
-    color: #878c94;
+    background: linear-gradient(135deg, rgba(242,243,244,.75) 0%, rgba(255,255,255,.5) 56%, rgba(245,245,245,.25) 100%)
+    /* color: #878c94; */
 }
-.footer .title{text-align: left;color:#fff;font-size:25px;}
+.footer .title{text-align: left;color:#026f52;font-size:2rem;}
 
 
 .footer .social-icon{padding:0px;margin:0px;}
@@ -31,7 +31,7 @@
 .footer .payment li a {
     text-decoration: none;
     display: inline-block;
-    color: #fff;
+    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
     /*float: left;
     font-size: 25px;
     /*padding: 10px 10px;*/
