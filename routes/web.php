@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 /* Routes for Site; Does not require login */
-Route::get('/', 'PagesController@index');
+Route::resource('/', 'PagesController');
 
 Route::get('/commitments', 'PagesController@commitments')->name('commitment');
 

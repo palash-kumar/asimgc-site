@@ -119,75 +119,16 @@
                 </div>
             </div>
         </div>
+        <div class="row content-center mt-2 mb-2" id="team-1" data-aos="fade-left">
 
-        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-left">
-            @foreach ($users as $user)
-            @if ($user->user_roles_id == 1)
+        </div>
+        <div class="row content-center mt-2 mb-2" id="team-3" data-aos="fade-left">
 
-            <div class="col-md-4">
-                <div class="card team-card border-0 shadow">
-                    <div class="row">
-                        <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
-                        </div>
-                        <div class="col-md-8 col-8 align-self-center text-light p-1">
-                        <h6 class="title text-center h-style">{{$user->name}}</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
-                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="row content-center mt-2 mb-2" id="team-2" data-aos="fade-left">
 
-            @endif
-            @endforeach
         </div>
 
-        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-right">
-            @foreach ($users as $user)
-            @if ($user->user_roles_id == 2)
-
-            <div class="col-md-4">
-                <div class="card team-card border-0 shadow">
-                    <div class="row">
-                        <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
-                        </div>
-                        <div class="col-md-8 col-8 align-self-center text-light p-1">
-                        <h6 class="title text-center h-style">{{$user->name}}</h6>
-                            <p class="text-center" style="color: #add8e6;"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
-                            <p class="text-center">Email: <b>{{$user->email}}</b></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @endif
-            @endforeach
-        </div>
-
-        <div class="row content-center mt-2 mb-2" id="team" data-aos="fade-left">
-            @foreach ($users as $user)
-            @if ($user->user_roles_id == 3)
-
-            <div class="col-md-4">
-                <div class="card team-card border-0 shadow">
-                    <div class="row">
-                        <div class="col-md-4 col-4 p-0">
-                            <img class="w-100 rounded-left" src="/storage/siteImages/UserImages/{{$user->user_image}}" alt="">
-                        </div>
-                        <div class="col-md-8 col-8 align-self-center p-1">
-                        <h6 class="title text-center h-style">{{$user->name}}</h6>
-                            <p class="text-center"><i>{{$user->designation? $user->designation->title : "Not Designated"}}</i></p>
-                            <p class="text-center"><b>{{$user->email}}</b></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @endif
-            @endforeach
-        </div>
     </div>
 </section>
 <!-- ./self ================================================== -->
@@ -197,7 +138,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="well text-center shadow">
-                    <h2><font class="title-style shadow-sm">Clients</font></h2>
+                    <h2><font class="title-style ">Clients</font></h2>
                 </div>
             </div>
         </div>
@@ -307,15 +248,6 @@
                             </a>
                         </div>
                         @endforeach
-
-                         {{-- @foreach ($gallery as $image)
-                        <div class="mb-2 pics animation all 2">
-                            <a href="/storage/siteImages/Gallery/{{$image->image_path}}" class="fancybox" rel="gallery1">
-                                <img class="img-fluid" src="/storage/siteImages/Gallery/{{$image->image_path}}">
-                            </a>
-                        </div>
-                        @endforeach --}}
-
                         <!-- Grid column -->
                     </div>
 
@@ -400,6 +332,17 @@
         } )
         }
     });
+
+        $.ajax({
+                type:'GET',
+                url:"{{ route('index') }}",
+                success:function(data){
+                $.each(data, function(key, val){
+                    $('#team-'+val.order_by).append(memberCard(val));
+                } )
+
+                }
+        });
     })
 
 
@@ -409,6 +352,27 @@
                         +'<img class="img-fluid" src="storage/siteImages/Gallery/'+image_path+'">'
                     +'</a>'
                 +'</li>';
+    }
+
+    function loadMembers(){
+
+    }
+
+    function memberCard(member){
+        return '<div class="col-md-4">'
+            +'<div class="card team-card border-0 shadow">'
+                +'<div class="row">'
+                    +'<div class="col-md-4 col-4 p-0">'
+                        +'<img class="w-100 rounded-left" src="/storage/siteImages/UserImages/'+member.user_image+'" alt="">'
+                    +'</div>'
+                    +'<div class="col-md-8 col-8 align-self-center p-1">'
+                    +'<h6 class="title text-center h-style">'+member.name+'</h6>'
+                        +'<p class="text-center mb-1" ><i>'+((member.designations_id != 'null')? member.designation.title: 'Not Designated')+'</i></p>'
+                        +'<p class="text-center mb-1"><b>'+member.email+'</b></p>'
+                    +'</div>'
+                +'</div>'
+            +'</div>'
+        +'</div>'
     }
 
 </script>

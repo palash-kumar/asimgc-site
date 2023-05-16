@@ -44,12 +44,7 @@ class GallerySettingsController extends Controller
                 return $gal->imageCategory->title ;
             })->addColumn('cat_id', function(Gallery $gal){
                 return $gal->imageCategory->id ;
-            })->toJson();//make(true)
-            /*return DataTables::eloquent($users)
-                ->addColumn('users', function (Post $post) {
-                    return $post->users->name;
-                })
-                ->toJson();*/
+            })->toJson();
         }
         return view('appPages.gallerySettings')->with('gallery',$gallery)->with(['imageCategory'=>$imageCategory, 'cats'=>$cats]);
     }

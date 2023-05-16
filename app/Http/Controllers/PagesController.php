@@ -45,6 +45,24 @@ class PagesController extends Controller
 
         // error_log('->siteSettings is : '.$companySettigs->services.'\n');
 
+        // Ajax Start
+        if ($request->ajax()) {
+            error_log('->GallerySettingsController request: '.$request->ajax());
+            $company = Session::get("company");
+            $user = User::select('name','mobile','user_image','email', 'designations_id','order_by')->where('order_by','>',0)
+                    ->whereNotNull('designations_id')->with(['designation:id,title'])->where('order_by', '>', 0)
+                    ->orderBy('designations_id','asc')->get();
+            //$users = User::with('userRole', 'designation', 'userServices');
+            // $user = User::where(function($q) {
+            //     $q->where('user_roles_id', 1)
+            //     ->orWhere('user_roles_id', 2)->orWhere('user_roles_id', 3);
+            //     })->whereNotNull('designations_id')->orderBy('designations_id','asc')->get();
+            //error_log('$gallery: '.$gallery);
+            return response()->json($user);
+        }
+        // Ajax End
+
+
         $term = 'Commitment';
 
         $imgCats = ImageCategory::all();

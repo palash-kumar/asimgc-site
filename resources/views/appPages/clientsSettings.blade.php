@@ -136,7 +136,7 @@
             render: function ( data, type, row, meta ){
                     //var element= '<h6 class="h-style text-center text-primary">'+data+'</h6>';
 
-                    return data;
+                    return '<img style="max-height: 150px; max-width: 100px; " src="/storage/siteImages/Clients/'+data+'" alt="">';
                 }
             },
             { data: "title",
