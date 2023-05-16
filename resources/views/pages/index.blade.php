@@ -222,7 +222,7 @@
                         <h2 class="text-center"><font class="h-style shadow-sm">Certifications</font></h2>
                     </div>
                 </div>
-                <div class="row image-box justify-content-center gallery-show" id=”images-wrapper”>
+                <div class="row image-box justify-content-center" id=”images-wrapper”>
                     <ul class="list-inline gallery" id="certificates">
 
                     </ul>
@@ -330,6 +330,15 @@
         $.each(data.gallery, function(key, val){
                 $('#images').append(gallaryImageComponent(val.image_path))
         } )
+        },
+        complete: function(data){
+            console.log('Images are loaded');
+            $(".fancybox").fancybox();
+
+            $("[rel='tooltip']").tooltip();
+            $(".fde").css('display', 'none');
+            $(".fde").fadeIn(2000);
+
         }
     });
 

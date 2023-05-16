@@ -47,9 +47,7 @@
     <!-- Scrolling -->
     <script src="{{ asset('js/scrolling.js') }}" ></script>
 
-    <!-- fancyBox v2.1.5 --->
-    <script src="{{ asset('assets/fancybox/jquery.fancybox.js') }}" ></script>
-    <script src="{{ asset('assets/fancybox/jquery.fancybox.pack.js') }}" ></script>
+
 
     <!-- ckeditor -->
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}" ></script>
@@ -73,7 +71,9 @@
 
     </div>
 
-
+    <!-- fancyBox v2.1.5 --->
+    <script src="{{ asset('assets/fancybox/jquery.fancybox.js') }}" ></script>
+    <script src="{{ asset('assets/fancybox/jquery.fancybox.pack.js') }}" ></script>
     <!-- Scripts -->
     <script src="{{ asset('assets/aos-animation/aos.js') }}" ></script>
     <script src="{{ asset('assets/datatables/datatables.min.js') }}" ></script>
@@ -92,11 +92,7 @@
         // })
 
         $(document).ready(function() {
-            $(".fancybox").fancybox();
 
-            $("[rel='tooltip']").tooltip();
-            $(".fde").css('display', 'none');
-            $(".fde").fadeIn(2000);
         });
     </script>
 

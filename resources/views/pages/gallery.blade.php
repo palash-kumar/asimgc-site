@@ -51,7 +51,16 @@ $(document).ready(function() {
        $.each(data.gallery, function(key, val){
             $('#images').append(gallaryImageComponent(val.image_path))
        } )
-     }
+     },
+        complete: function(data){
+            console.log('Images are loaded');
+            $(".fancybox").fancybox();
+
+            $("[rel='tooltip']").tooltip();
+            $(".fde").css('display', 'none');
+            $(".fde").fadeIn(2000);
+
+        }
   });
 })
 
